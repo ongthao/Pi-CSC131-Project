@@ -2,6 +2,7 @@
 public class Database {
 	private Node front;
 	
+	//constructor method
 	public Database(Node n) {
 		
 	}

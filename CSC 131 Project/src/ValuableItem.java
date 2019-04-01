@@ -16,7 +16,7 @@ public class ValuableItem {
 		
 	}
 	
-	//set status to "lost"  or "registered"
+	//sets status to "lost"  or "registered"
 	public void setStatus() {
 		
 	}
