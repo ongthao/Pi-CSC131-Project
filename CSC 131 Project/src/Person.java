@@ -30,8 +30,8 @@ public class Person {
 		this.actualName = actualName;
 		this.birth = birth;
 		this.address = address;
-		this.security1 = security1; //after 2 weeks
-		this.security2 = security2; //after 2 weeks
+		//this.security1 = security1; //after 2 weeks
+		//this.security2 = security2; //after 2 weeks
 		created = new Date(); //should set "created" to the time it this object was created
 		this.email = email; 
 	}
