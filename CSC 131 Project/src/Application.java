@@ -31,9 +31,11 @@ public class Application {
 		//prompt user such as "Is your item lost?"
 		//ask security the 2 questions 
 		//then signals the item to beam location every 10 minutes for GPS location (G)
-		//gets item's TagID and info from database (X,T,Y) 
+		//gets item's TagID and info from "database" (X,T,Y) 
+		//sets item's status to "lost" in both the "database" and "valuableitem" classes
 		//if item is found.....print out informations
 			//System.out.print("Owner X with Address Y is notified that Owner's item I with Tag ID T was found at GPS location G");
+			//set the status to "found" or "Registered"
 	}
 	
 	//user logs in if they already have an existing account/will need this to log into another person's phone or device to find their item

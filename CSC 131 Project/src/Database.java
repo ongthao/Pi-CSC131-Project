@@ -7,6 +7,9 @@ public class Database {
 		
 	}
 	
+	public void isLost() {
+		
+	}
 	
 	//adds a new node to the database
 	public void add(Node n) {
