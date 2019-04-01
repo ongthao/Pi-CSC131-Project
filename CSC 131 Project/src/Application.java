@@ -3,6 +3,7 @@ import java.util.*;
 public class Application {
 	public static void main(String[] args) {
 		System.out.println("Hello Team Pi");
+		System.out.print("Hello");
 	}
 	
 	//purpose of this method is to create a database of values we are getting from the text file (if the text file is not null)
@@ -51,7 +52,7 @@ public class Application {
 		//return username or prompt to change password
 	}
 	
-	//most of the stuff we are comparing are Strings 
+	//most of the stuff we are comparing are Strings
 	public static void dataValid() {
 		
 	}
