@@ -32,7 +32,7 @@ public class Application {
 		//ask security the 2 questions 
 		//then signals the item to beam location every 10 minutes for GPS location (G)
 		//gets item's TagID and info from database (X,T,Y) 
-		//if item is found.....print out information
+		//if item is found.....(print out information)
 			//System.out.print("Owner X with Address Y is notified that Owner's item I with Tag ID T was found at GPS location G");
 	}
 	
