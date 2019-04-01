@@ -5,6 +5,7 @@ public class Person {
 	private String username;
 	private String password;
 	private int tagID; 	//this is going to be used to identify the item, so must not be duplicated (is received from "ValuableItem" class
+	private String status; //going to use the value in the ValuableItem class
 	private String phoneNum;
 	private String actualName;
 	private String birth;
