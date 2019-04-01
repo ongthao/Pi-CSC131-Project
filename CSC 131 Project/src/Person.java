@@ -10,9 +10,10 @@ public class Person {
 	private String actualName;
 	private String birth;
 	private String address;
-	private String security1;
-	private String security2;
+	//private String security1;
+	//private String security2;
 	private Date created; //keeps track of the time and date in which the person registered their info
+	private String email;
 	
 	//don't really need this default method, it is just a placeholder so we don't get an error in the driver. 
 	public Person() {
@@ -21,7 +22,7 @@ public class Person {
 	}
 	
 	//constructor method for Person object
-	public Person(String user, String pass, int tagID, String phone, String actualName, String birth, String address, String security1, String security2) {
+	public Person(String user, String pass, int tagID, String phone, String actualName, String birth, String address, String security1, String security2, String email) {
 		username = user;
 		password = pass;
 		this.tagID = tagID;
@@ -29,9 +30,10 @@ public class Person {
 		this.actualName = actualName;
 		this.birth = birth;
 		this.address = address;
-		this.security1 = security1;
-		this.security2 = security2;
+		this.security1 = security1; //after 2 weeks
+		this.security2 = security2; //after 2 weeks
 		created = new Date(); //should set "created" to the time it this object was created
+		this.email = email; 
 	}
 	
 	//create setter and getter methods for ALL of the instance variables

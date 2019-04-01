@@ -28,9 +28,10 @@ public class Application {
 	
 	//prompts user to see if the valuable item is lost/Make button for lost
 	public static void lost() {
-		//prompt user such as "Is your item lost?"
+		//in GUI create a "Lost?" button
+		//login/authentication (after 2 weeks)
 		//ask security the 2 questions 
-		//then signals the item to beam location every 10 minutes for GPS location (G)
+		//then signals the item to beam location every 10 minutes for GPS location (valuableitem.itemLost() (G)
 		//gets item's TagID and info from "database" (X,T,Y) 
 		//sets item's status to "lost" in both the "database" and "valuableitem" classes
 		//if item is found.....print out informations
@@ -40,6 +41,18 @@ public class Application {
 	
 	//user logs in if they already have an existing account/will need this to log into another person's phone or device to find their item
 	public static void logIn() {
+		
+	}
+
+	//after 2 weeks
+	public static void forgotUserOrPass() {
+		//ask security questions
+		//send email verification (send the user an email/the email is a pre-written textfile that is read by the class)
+		//return username or prompt to change password
+	}
+	
+	//most of the stuff we are comparing are Strings 
+	public static void dataValid() {
 		
 	}
 }
