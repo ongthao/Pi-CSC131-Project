@@ -12,11 +12,11 @@ public class Node {
 	
 	//getter and setter methods
 	public void setP(Person n) {
-		
+		p = n;
 	}
 	
 	public void setHead(Node h) {
-		
+		head = h;
 	}
 	
 	public Person getP() {

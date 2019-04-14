@@ -1,6 +1,7 @@
 //purpose of this class is to use Person objects to add people onto the database using linked lists or arraylist
 public class Database {
 	private Node front;
+	private String FILENAME;
 	
 	//constructor method
 	public Database(Node n) {
@@ -13,7 +14,9 @@ public class Database {
 	
 	//adds a new node to the database
 	public void add(Node n) {
+		// code for adding
 		
+		writeToFile(n);
 	}
 	
 	//getter and setter methods
@@ -32,5 +35,9 @@ public class Database {
 	
 	//This method should allow the user to change their information (the String s will be an identifier for what specifically needs to be changed)
 	public void change(Node n, String s) {
+	}
+	
+	private void writeToFile(Node n) {
+		
 	}
 }
