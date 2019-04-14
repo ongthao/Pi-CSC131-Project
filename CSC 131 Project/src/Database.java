@@ -18,7 +18,7 @@ public class Database {
 	
 	//getter and setter methods
 	public void setFront(Node n) {
-		
+		front = n;
 	}
 	
 	public Node getFront() {
