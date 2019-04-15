@@ -14,7 +14,10 @@ public class Database {
 	
 	//adds a new node to the database
 	public void add(Node n) {
-		// code for adding
+		Node i;
+		
+		for (i = front; i.getHead() != null; i = i.getHead()) {}
+		i.setHead(n);
 		
 		writeToFile(n);
 	}
@@ -30,7 +33,10 @@ public class Database {
 	
 	//purpose of this method is to delete a user's account information when requested (can use user's "name" as an identifier for whose info wants to be deleted)
 	public void delete(Node n) {
+		Node i;
 		
+		for (i = front; i.getHead() != n; i = i.getHead()) {}
+		i.setHead(i.getHead().getHead());
 	}
 	
 	//This method should allow the user to change their information (the String s will be an identifier for what specifically needs to be changed)
