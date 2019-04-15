@@ -130,6 +130,9 @@ public class Person {
 	
 	//returns all of the user's information in one line (thinking about printing the whole database "table" style)
 	public String toString() {
-		return username + password + tagID  + phoneNum + actualName + birth + address + email + created;
+		return String.format("Username: %s %nPassword: %s %ntagID: %s %nPhone Number: %s %nName: %s %n"
+							 + "Date of Birth: %s %nAddress: %s %nEmail Address: %s %nCreated: %s",
+							 username, password, tagID, phoneNum, actualName, birth, address, 
+							 email, created);
 	}
 }
