@@ -7,6 +7,15 @@ public class ValuableItem {
 		public static double x;
 		public static double y;
 	}
+	
+	//Default Constructor
+	public ValuableItem() {
+		tagID = 0;
+		status = "";
+		ValuableItem.loc.x = 0.0;
+		ValuableItem.loc.y = 0.0;
+	}
+
 	//constructor method for initializing "tagID"
 	public ValuableItem(int tagID, String status, double a, double b) {
 		//use a random number generator to initialize the tagID
