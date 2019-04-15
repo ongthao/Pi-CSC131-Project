@@ -12,7 +12,7 @@ public class Database {
 	
 	//constructor method
 	public Database(Node n) {
-		
+		front = n;
 	}
 	
 	public void isLost() {
