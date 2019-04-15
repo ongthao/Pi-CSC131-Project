@@ -1,7 +1,8 @@
-import java.util.Scanner;
+import java.util.*;
+import java.io.*;
 
 public class Application {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException{
 		Scanner kb = new Scanner(System.in);
 		//database linked list's "front" node is the most recent registered account
 		Database d = update();
@@ -29,7 +30,7 @@ public class Application {
 
 	// purpose of this method is to create a database of values we are getting from
 	// the text file (if the text file is not null)
-	public static Database update() {
+	public static Database update() throws IOException{
 		// read values from the text file and create the appropriate objects to update
 		// the database.
 		ValuableItem val = new ValuableItem(12345,  "registered", 22.1, 22.2);
@@ -38,7 +39,7 @@ public class Application {
 		Node n = new Node(p);
 		Database d = new Database(n);
 		// reading from the text file
-		File f = new File("Testfile");
+		File f = new File("Testfile.txt");
 		Scanner input = new Scanner(f);
 		// adding the new users to the database after the admin account
 		while (input.hasNextLine()) {
