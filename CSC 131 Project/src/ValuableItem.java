@@ -1,19 +1,15 @@
 public class ValuableItem {
 	private int tagID; 
 	private String status;
-		
-	static class loc
-	{
-		public static double x;
-		public static double y;
-	}
+	private double x;
+	private double y;
 	
 	//Default Constructor
 	public ValuableItem() {
 		tagID = 0;
 		status = "";
-		ValuableItem.loc.x = 0.0;
-		ValuableItem.loc.y = 0.0;
+		x = 0.0;
+		y = 0.0;
 	}
 	
 	//constructor method for initializing "tagID"
@@ -24,8 +20,8 @@ public class ValuableItem {
 		
 		this.tagID = tagID;
 		this.status = status;
-		ValuableItem.loc.x = a;
-		ValuableItem.loc.y = b;
+		this.x = a;
+		this.y = b;
 	}
 	
 	//setter and getter methods
@@ -38,10 +34,12 @@ public class ValuableItem {
 		this.status = status;
 	}
 	
-	public void setLocation(double x, double y)
-	{
-		ValuableItem.loc.x = x;
-		ValuableItem.loc.y = y;
+	public void setX(double x) {
+		this.x = x;
+	}
+	
+	public void setY(double y) {
+		this.y = y;
 	}
 	
 	public int getTagID() {
@@ -52,22 +50,28 @@ public class ValuableItem {
 		return status;
 	}
 	
-	public loc getLocation() {
-		return new loc();
+	public double getX() {
+		return x;
+	}
+	
+	public double getY() {
+		return y;
 	}
 	
 	//used for sending beams every 10 minutes to update location
-	public loc itemLost() {
+	public String itemLost() {
 		//writes to a file (sends info about its tagID and location)
 		double temp1 = Math.round((Math.random()*Math.random()*6355)*100)/100D;
 		double temp2 = Math.round((Math.random()*Math.random()*6355)*-100)/100D;
-		setLocation(temp1,temp2);
 		setStatus("Lost");
-		return getLocation();
+		setX(temp1);
+		setY(temp2);
+		return String.format("(%s, %s)", x, y);
+		
 	}
    
    //writes the location in (x,y) format
    public String toString() {
-	  return String.format("TagID: %s %nStatus: %s %nLocation: (%s, %s)", tagID, status, loc.x, loc.y);
+	  return String.format("TagID: %s %nStatus: %s %nLocation: (%s, %s)", tagID, status, x, y);
    }
 }
