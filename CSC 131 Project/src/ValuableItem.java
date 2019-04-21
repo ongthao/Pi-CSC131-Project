@@ -68,11 +68,8 @@ public class ValuableItem {
         	@Override
             public void run() {
 	                System.out.println(itemLost());
-	                if((status == "Found") || (status == "found"))
-	                {
-	                	System.out.println("The Item Has Been Found!");
+	                if(status.equalsIgnoreCase("found"))
 	                	timer.cancel();
-	                }
             }
             
         	//used for sending beams every 10 minutes to update location
@@ -80,7 +77,6 @@ public class ValuableItem {
         		//writes to a file (sends info about its tagID and location)
         		double temp1 = Math.round((Math.random()*Math.random()*6355)*100)/100D;
         		double temp2 = Math.round((Math.random()*Math.random()*6355)*100)/100D;
-        		setStatus("Lost");
         		setX(temp1);
         		setY(temp2);
         		return String.format("Current Location: (%s, %s)", x, y);
