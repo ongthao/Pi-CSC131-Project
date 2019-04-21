@@ -68,6 +68,6 @@ public class Database {
 	
 	private String PtoS(Person p)
 	{
-		return "";	//cannot write until we can get user info like getUsername();
+		return p.toString();
 	}
 }
