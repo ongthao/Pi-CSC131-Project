@@ -77,7 +77,7 @@ public class ValuableItem {
             
         	//used for sending beams every 10 minutes to update location
         	public String itemLost() {
-        		//writes to a file (sends info about its tagID and location
+        		//writes to a file (sends info about its tagID and location)
         		double temp1 = Math.round((Math.random()*Math.random()*6355)*100)/100D;
         		double temp2 = Math.round((Math.random()*Math.random()*6355)*100)/100D;
         		setStatus("Lost");
