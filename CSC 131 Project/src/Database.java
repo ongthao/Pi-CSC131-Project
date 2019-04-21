@@ -21,12 +21,10 @@ public class Database {
 	
 	//adds a new node to the database
 	public void add(Node n) {
-		Node i;
+		n.setHead(front);
+		front = n;
 		
-		for (i = front; i.getHead() != null; i = i.getHead()) {}
-		i.setHead(n);
-		
-		writeToFile(n);
+		writeToFile();
 	}
 	
 	//getter and setter methods
@@ -44,25 +42,30 @@ public class Database {
 		
 		for (i = front; i.getHead() != n; i = i.getHead()) {}
 		i.setHead(i.getHead().getHead());
+		
+		writeToFile();
 	}
 	
 	//This method should allow the user to change their information (the String s will be an identifier for what specifically needs to be changed)
 	public void change(Node n, String s) {
 	}
 	
-	private void writeToFile(Node n) {
-		if(n.getP()== null) {
-            System.out.print("This node is empty");
-        }
-        else {
-        	BufferedWriter writer = new BufferedWriter(new FileWriter(new File(/*n.getUsername()*/ "user1" + ".txt")));
-            writer.write(PtoS(n.getP()));
-            writer.close();
-        }
+	private void writeToFile() {
+		for (Node n = front; n.getHead() != null; n = n.getHead())
+		{
+			if(n.getP()== null) {
+	            System.out.print("This node is empty");
+	        }
+	        else {
+	        	BufferedWriter writer = new BufferedWriter(new FileWriter(new File(/*n.getUsername()*/ "user1" + ".txt")));
+	            writer.write(PtoS(n.getP()));
+	            writer.close();
+	        }
+		}
 	}
 	
 	private String PtoS(Person p)
 	{
-		return "";	//cannot write until we can get user info like getUsername();
+		return p.toString();
 	}
 }
