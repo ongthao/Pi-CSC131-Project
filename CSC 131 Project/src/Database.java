@@ -21,10 +21,8 @@ public class Database {
 	
 	//adds a new node to the database
 	public void add(Node n) {
-		Node i;
-		
-		for (i = front; i.getHead() != null; i = i.getHead()) {}
-		i.setHead(n);
+		n.setHead(front);
+		front = n;
 		
 		writeToFile();
 	}
