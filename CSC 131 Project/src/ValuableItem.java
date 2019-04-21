@@ -1,4 +1,8 @@
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class ValuableItem {
+	private Timer timer = new Timer();
 	private int tagID; 
 	private String status;
 	private double x;
@@ -58,17 +62,37 @@ public class ValuableItem {
 		return y;
 	}
 	
-	//used for sending beams every 10 minutes to update location
-	public String itemLost() {
-		//writes to a file (sends info about its tagID and location)
-		double temp1 = Math.round((Math.random()*Math.random()*6355)*100)/100D;
-		double temp2 = Math.round((Math.random()*Math.random()*6355)*-100)/100D;
-		setStatus("Lost");
-		setX(temp1);
-		setY(temp2);
-		return String.format("(%s, %s)", x, y);
-		
-	}
+	//Method that beams location every 10 minutes
+    public 	void lost() {
+        timer.schedule(new TimerTask() {
+        	@Override
+            public void run() {
+	                System.out.println(itemLost());
+	                if((status == "Found") || (status == "found"))
+	                {
+	                	System.out.println("The Item Has Been Found!");
+	                	timer.cancel();
+	                }
+            }
+            
+        	//used for sending beams every 10 minutes to update location
+        	public String itemLost() {
+        		//writes to a file (sends info about its tagID and location)
+        		double temp1 = Math.round((Math.random()*Math.random()*6355)*100)/100D;
+        		double temp2 = Math.round((Math.random()*Math.random()*6355)*100)/100D;
+        		setStatus("Lost");
+        		setX(temp1);
+        		setY(temp2);
+        		return String.format("Current Location: (%s, %s)", x, y);
+        		
+        	}
+        	
+        	public void itemFound() {
+        		setStatus("Found");
+        	}
+        }, 0, 3 * 1000); // Change the last three numbers to desired time. (Minutes * Seconds * Milliseconds)]
+        				 // For 10 minutes put 10 * 60 * 1000 in place of 3 * 1000	
+    }
    
    //writes the location in (x,y) format
    public String toString() {
