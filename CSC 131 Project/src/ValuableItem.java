@@ -67,9 +67,9 @@ public class ValuableItem {
         timer.schedule(new TimerTask() {
         	@Override
             public void run() {
+                if(status.equalsIgnoreCase("found"))
+                	timer.cancel();
 	                System.out.println(itemLost());
-	                if(status.equalsIgnoreCase("found"))
-	                	timer.cancel();
             }
             
         	//used for sending beams every 10 minutes to update location
@@ -86,7 +86,7 @@ public class ValuableItem {
         	public void itemFound() {
         		setStatus("Found");
         	}
-        }, 0, 3 * 1000); // Change the last three numbers to desired time. (Minutes * Seconds * Milliseconds)]
+        }, 0, 10 * 60 * 1000); // Change the last three numbers to desired time. (Minutes * Seconds * Milliseconds)]
         				 // For 10 minutes put 10 * 60 * 1000 in place of 3 * 1000	
     }
    
