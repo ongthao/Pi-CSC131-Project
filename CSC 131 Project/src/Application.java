@@ -6,28 +6,29 @@ public class Application {
 		Scanner kb = new Scanner(System.in);
 		//database linked list's "front" node is the most recent registered account
 		Database d = update();
-		System.out.println("Welcome to Pie Device Locator.\nPlease select an option:\n1. Register\n2. Log In\n3.Forget Username and Password"); 
+		System.out.println("Welcome to Pie Device Locator.\nPlease select an option:\n1. Register\n2. Log In\n3. Forget Username and Password"); 
 		String input = kb.next(); 
-		while(input.equalsIgnoreCase("1") || input.equalsIgnoreCase("Register") || input.equalsIgnoreCase("2") || input.equalsIgnoreCase("Log In"))  {
+		//while(input.equalsIgnoreCase("1") || input.equalsIgnoreCase("Register") || input.equalsIgnoreCase("2") || input.equalsIgnoreCase("Log In"))  {
 			if (input.equalsIgnoreCase("1") || input.equalsIgnoreCase("register")) {
-				d.add(register(d, kb));
+				register(d, kb);
+				System.out.print("Your account has been registered. Do you want to log in? ");
+				if(kb.next().equalsIgnoreCase("yes"))
+					logIn(d, kb);
 			}else if (input.equalsIgnoreCase("2") || input.equalsIgnoreCase("log in")) {
 				//"n" now represents the current user that is registered. 
-				Node n = logIn(d, kb);
-				System.out.print("Is your device lost? (yes/no)");
+				Node n = logIn(d,kb);
+				System.out.print("\nIs your device lost? (yes/no) ");
 				String answer = kb.next();
 				if (answer.equalsIgnoreCase("yes")) {
 					lost(n);
 				}else {
-					System.out.println("Thank you for using this application!");
+					System.out.println("\n\nThank you for using this application!");
 				}
 			}else {
 				//forgotUserOrPass(d);
 			}
-		}
-		System.out.println("Not a valid option, try again");
+		//System.out.println("Not a valid option, try again");
 	}
-
 	// purpose of this method is to create a database of values we are getting from
 	// the text file (if the text file is not null)
 	public static Database update() throws IOException{
@@ -100,32 +101,56 @@ public class Application {
 	}
 
 	// registers the valuable item/make button for register
-	public static Node register(Database d, Scanner kb) {
-		ValuableItem val = new ValuableItem(12345, "registered", 12345, 12345); // ****only temp****
+	public static void register(Database d, Scanner kb) throws IOException{
+		Random r = new Random();
+		int tag = 0;
+		while(tag == 0) {
+			tag = r.nextInt(99998) + 1;
+			Node n = d.getFront();
+			while(n != null) {
+				if(tag != n.getP().getTagID())
+					n = n.getHead();
+				else {
+					tag = 0; 
+					break;
+				}
+			}
+		}
+		System.out.print(tag);
+		double x = r.nextDouble() + 10;
+		double y = r.nextDouble() + 10;
+		ValuableItem val = new ValuableItem(tag, "registered", x, y); // ****only temp****
 		// prompt for username, password, etc.
-		System.out.print("Username: ");
-		String user = kb.nextLine();
-		System.out.print("Password: ");
-		String pass = kb.nextLine();
-		System.out.print("Phone number: ");
-		String phone = kb.nextLine();
-		System.out.print("Actual name: ");
-		String name = kb.nextLine();
-		System.out.print("Birth: ");
-		String bday = kb.nextLine();
-		System.out.print("Address: ");
-		String addr = kb.nextLine();
-		System.out.print("Email: ");
-		String mail = kb.nextLine();
-		System.out.print("Today's Date: ");
-		String created = kb.nextLine();
+		System.out.print("\nUsername: ");
+		String user = kb.next();
+		System.out.print("\nPassword: ");
+		String pass = kb.next();
+		System.out.print("\nPhone number: ");
+		String phone = kb.next();
+		System.out.print("\nActual name (first and last): ");
+		String name = kb.next();
+		String name2 = kb.next();
+		System.out.print("\nBirth (in format - day month year; e.g 12 January 1999): ");
+		int day = kb.nextInt();
+		String month = kb.next();
+		int year = kb.nextInt();
+		System.out.print("\nAddress: ");
+		int number = kb.nextInt();
+		String street = kb.next();
+		String street2 = kb.next();
+		System.out.print("\nEmail: ");
+		String mail = kb.next();
+		System.out.print("\nToday's Date (in format of \"day month year\"; e.g. 12 January 1999): ");
+		int created1 = kb.nextInt();
+		String created2 = kb.next();
+		int created3 = kb.nextInt();
 		// all their info (the default "Person()" is just here as a placeholder, it
 		// should be changed to its actual constructor)
 		/* NEED TO DISCUSS "STATUS" and "SECURITY" VARIABLES! */
-		Person s = new Person(user, pass, phone, name, bday, addr, mail, created, val);
+		Person s = new Person(user, pass, phone, name + " " + name2, day + " " + month + " " + year, number + " " + street + " " + street2, mail, created1 + " " + created2 + " " + created3, val);
 		// create a node to add into database linked list
 		Node n = new Node(s);
-		return n;
+		d.add(n);
 	}
 
 	// prompts user to see if the valuable item is lost/Make button for lost
@@ -159,21 +184,21 @@ public class Application {
 		int num = 0; // signal for error
 		while (num == 0) {
 			Node curr = d.getFront();
-			System.out.print("Please enter your username: ");
+			System.out.print("\nPlease enter your username: ");
 			String user = kb.next();
 			System.out.print("Please enter your password: ");
 			String pass = kb.next();
 			while (curr != null) {
-				if (user.equalsIgnoreCase(curr.getP().getUser())) { // need to check if these getter methods are in
-																	// place
+				if (user.equalsIgnoreCase(curr.getP().getUser())) { 
 					if (pass.equalsIgnoreCase(curr.getP().getPass())) {
-						System.out.print("You have successfully logged in.");
-						num = 1; // need to check if i really need this
+						System.out.println("\nYou have successfully logged in.");
 						return curr;
 					}
 				}
+				else
+					curr = curr.getHead();
 			}
-			System.out.print("Error: Either your username or password is incorrect. Please try again.");
+			System.out.println("Error: Either your username or password is incorrect. Please try again.");
 		}
 		return null;
 	}
@@ -197,7 +222,7 @@ public class Application {
 				System.out.println("We couldn't find that email. Would you like to try again? (y/n): ");
 				a = kb.nextLine();
 			}
-		} while (a.equalsIgnoreCase("y"));
+		} while (a.equalsIgnoreCase("y"));`
 	}
 	else if (input.equalsIgnoreCase("password")) {
 		do {
@@ -265,6 +290,11 @@ public class Application {
 	
 	}*/
 
+	public static void options() {
+		//provide a list of options for a user that is logged in
+		//options includes: finding a lost item, deleting their account, updating their account information, etc.
+	}
+	
 	public static void delete() {
 		
 	}
@@ -272,5 +302,5 @@ public class Application {
 	//specify what info to change, Database
 	public static void changeInfo(Node n) {
 		
-	}
+	}	
 }
