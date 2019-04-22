@@ -24,10 +24,11 @@ public class Person {
 	}
 	
 	//constructor method for Person object
-	public Person(String user, String pass, int tagID, String phone, String actualName, String birth, String address, String email, String created, ValuableItem item) {
+	public Person(String user, String pass, String phone, String actualName, String birth, String address, String email, String created, ValuableItem item) {
 		username = user;
 		password = pass;
-		this.tagID = tagID;
+		this.item = item;
+		this.tagID = item.getTagID();
 		phoneNum = phone;
 		this.actualName = actualName;
 		this.birth = birth;
@@ -36,7 +37,6 @@ public class Person {
 		//this.security2 = security2; //after 2 weeks
 		this.created = created; //should set "created" to the time it this object was created
 		this.email = email; 
-		this.item = item;
 	}
 	
 	//create setter and getter methods for ALL of the instance variables
@@ -130,9 +130,6 @@ public class Person {
 	
 	//returns all of the user's information in one line (thinking about printing the whole database "table" style)
 	public String toString() {
-		return String.format("Username: %s %nPassword: %s %ntagID: %s %nPhone Number: %s %nName: %s %n"
-							 + "Date of Birth: %s %nAddress: %s %nEmail Address: %s %nCreated: %s",
-							 username, password, tagID, phoneNum, actualName, birth, address, 
-							 email, created);
+		return tagID + item.getStatus() + item.getX() + item.getY() + username + password + phoneNum + actualName + birth + address + email + created;
 	}
 }

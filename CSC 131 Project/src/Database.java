@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.*;
 import java.io.FileWriter;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -9,6 +10,9 @@ public class Database {
 	private Node front;
 	//private String FILENAME = "include/database.txt";
 	//private File text = new File(FILENAME);
+	public Database() {
+		front = null;
+	}
 	
 	//constructor method
 	public Database(Node n) {
@@ -20,7 +24,7 @@ public class Database {
 	}
 	
 	//adds a new node to the database
-	public void add(Node n) {
+	public void add(Node n) throws IOException{
 		n.setHead(front);
 		front = n;
 		
@@ -37,7 +41,7 @@ public class Database {
 	}
 	
 	//purpose of this method is to delete a user's account information when requested (can use user's "name" as an identifier for whose info wants to be deleted)
-	public void delete(Node n) {
+	public void delete(Node n) throws IOException{
 		Node i;
 		
 		for (i = front; i.getHead() != n; i = i.getHead()) {}
@@ -50,7 +54,7 @@ public class Database {
 	public void change(Node n, String s) {
 	}
 	
-	private void writeToFile() {
+	private void writeToFile() throws IOException{
 		for (Node n = front; n.getHead() != null; n = n.getHead())
 		{
 			if(n.getP()== null) {
