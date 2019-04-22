@@ -22,7 +22,7 @@ public class Application {
 					System.out.println("Thank you for using this application!");
 				}
 			}else {
-				forgotUserAndPass(n);
+				//forgotUserOrPass(d);
 			}
 		}
 		System.out.println("Not a valid option, try again");
@@ -31,41 +31,70 @@ public class Application {
 	// purpose of this method is to create a database of values we are getting from
 	// the text file (if the text file is not null)
 	public static Database update() throws IOException{
-		// read values from the text file and create the appropriate objects to update
-		// the database.
-		ValuableItem val = new ValuableItem(12345,  "registered", 22.1, 22.2);
-		Person p = new Person("johnsmith1", "Leavemealone1", 12345, "9162781234", "John" + " " + "Smith", 16 + " " + "March" + " " +  1999,
-				8155 + " " + "Maple" + " " + "Drive", "jsmith@gmail.com", 12 + " " + "January" + " " +  2019, val);
-		Node n = new Node(p);
-		Database d = new Database(n);
-		// reading from the text file
+	
+		// reading from the text file create the appropriate objects to update the database.
 		File f = new File("Testfile.txt");
-		Scanner input = new Scanner(f);
+		Scanner input = new Scanner(f);		
+		StringTokenizer token = new StringTokenizer(input.nextLine());
+		Database d = new Database();
+		while (token.hasMoreTokens()) {
+			int tagID = Integer.parseInt(token.nextToken());
+			String status = token.nextToken();
+			double x = Double.parseDouble(token.nextToken());
+			double y = Double.parseDouble(token.nextToken());
+			ValuableItem item = new ValuableItem(tagID, status, x, y);
+			
+			String user = token.nextToken();
+			String pass = token.nextToken();
+			String phone = token.nextToken();
+			String first = token.nextToken();
+			String last = token.nextToken();
+			int birth1 = Integer.parseInt(token.nextToken());
+			String birth2 = token.nextToken();
+			int birth3 = Integer.parseInt(token.nextToken());
+			int address1 = Integer.parseInt(token.nextToken());
+			String address2 = token.nextToken();
+			String address3 = token.nextToken();
+			String email = token.nextToken();
+			int created1 = Integer.parseInt(token.nextToken());
+			String created2 = token.nextToken();
+			int created3 = Integer.parseInt(token.nextToken());
+			Person p = new Person(user, pass, phone, first + " " + last, birth1 + " " + birth2 + " " + birth3,
+					address1 + " " + address2 + " " + address3, email, created1 + " " + created2 + " " + created3, item);
+			Node n = new Node(p);
+			d = new Database(n);
+		}
+		
+		
 		// adding the new users to the database after the admin account
 		while (input.hasNextLine()) {
 			String line = input.nextLine();
-			Scanner token = new Scanner(line);
-			String user = token.next();
-			String pass = token.next();
-			int tagID = Integer.parseInt(token.next());
-			String phone = token.next();
-			String first = token.next();
-			String last = token.next();
-			int date1 = token.nextInt();
-			String date2 = token.next();
-			int date3 = token.nextInt();
-			int address1 = token.nextInt();
-			String address2 = token.next();
-			String address3 = token.next();
-			String email = token.next();
-			int created1 = token.nextInt();
-			String created2 = token.next();
-			int created3 = token.nextInt();
-			String status = token.next();
-			ValuableItem val1 = new ValuableItem(tagID, status, 22.2, 22.1);
-			Person p1 = new Person(user, pass, tagID, phone, first + " " + last, date1 + " " + date2 + " " + date3,
-					address1 + " " + address2 + " " + address3, email, created1 + " " + created2 + " " + created3, val1);
-			d.add(p1); 
+			Scanner token1 = new Scanner(line);
+			int tagID = Integer.parseInt(token1.next());
+			String status = token1.next();
+			double x = token1.nextDouble();
+			double y = token1.nextDouble();
+			ValuableItem item1 = new ValuableItem(tagID, status, x, y);
+			
+			String user = token1.next();
+			String pass = token1.next();
+			String phone = token1.next();
+			String first = token1.next();
+			String last = token1.next();
+			int birth1 = token1.nextInt();
+			String birth2 = token1.next();
+			int birth3 = token1.nextInt();
+			int address1 = token1.nextInt();
+			String address2 = token1.next();
+			String address3 = token1.next();
+			String email = token1.next();
+			int created1 = token1.nextInt();
+			String created2 = token1.next();
+			int created3 = token1.nextInt();
+			Person p1 = new Person(user, pass, phone, first + " " + last, birth1 + " " + birth2 + " " + birth3,
+					address1 + " " + address2 + " " + address3, email, created1 + " " + created2 + " " + created3, item1);
+			Node n1 = new Node(p1);
+			d.add(n1); 
 		}
 		return d;
 	}
@@ -93,7 +122,7 @@ public class Application {
 		// all their info (the default "Person()" is just here as a placeholder, it
 		// should be changed to its actual constructor)
 		/* NEED TO DISCUSS "STATUS" and "SECURITY" VARIABLES! */
-		Person s = new Person(user, pass, val.getTagID(), phone, name, bday, addr, mail, created, val);
+		Person s = new Person(user, pass, phone, name, bday, addr, mail, created, val);
 		// create a node to add into database linked list
 		Node n = new Node(s);
 		return n;
@@ -101,31 +130,28 @@ public class Application {
 
 	// prompts user to see if the valuable item is lost/Make button for lost
 	public static void lost(Node n) {
-			Scanner kb = new Scanner(System.in);
-			String answer = "";
-			//in GUI create a "Lost?" button
-			//ask security the 2 questions 
-			//sets item's status to "lost" in both the "database" and "valuableitem" classes
-			n.getP().getItem().setStatus("lost");
-			//then signals the item to beam location every 10 minutes for GPS location (valuableitem.itemLost() (G)
-			System.out.println(n.getP().getItem().itemLost());
-			if(n.getP().getItem().getStatus().equalsIgnoreCase("lost")) {
-				<V> ScheduledFuture<V> schedule(Callable<V> v.itemLost(), long 10, TimeUnit MINUTES);
-				System.out.print("Have you found your item yet? (y/n): ");
-				answer = kb.next();
-				if(answer.equalsIgnoreCase("y"))
-					n.getP().getItem().setStatus("found");
-				else
-					lost(n);
-			}
-			if(n.getP().getItem().getStatus().equalsIgnoreCase("found"))
-				System.out.print("\nOwner " + n.getP().getUser() + " with Address " + n.getP().getAddress() + " is notified that Owner's item " + n.getP().getItem() + " with Tag ID " + n.getP().getTagID() + " was found at GPS Location " + n.getP().getItem().getLocation());
-			//gets item's TagID and info from "database" (X,T,Y) 
-			
-			//if item is found.....print out informations
-				//System.out.print("Owner X with Address Y is notified that Owner's item I with Tag ID T was found at GPS location G");
-				//set the status to "found" or "Registered"
-		}
+		Scanner kb = new Scanner(System.in);
+		String answer = "";
+		//in GUI create a "Lost?" button
+		//ask security the 2 questions 
+		//sets item's status to "lost" in both the "database" and "valuableitem" classes
+		n.getP().getItem().setStatus("lost");
+		//then signals the item to beam location every 10 minutes for GPS location (valuableitem.itemLost() (G)
+		n.getP().getItem().lost();
+		System.out.print("Have you found your item yet? (y/n): ");
+		answer = kb.next();
+		if(answer.equalsIgnoreCase("y"))
+			n.getP().getItem().setStatus("found");
+		else
+			lost(n);
+		if(n.getP().getItem().getStatus().equalsIgnoreCase("found"))
+			System.out.print("\nOwner " + n.getP().getUser() + " with Address " + n.getP().getAddress() + " is notified that Owner's item " + n.getP().getItem() + " with Tag ID " + n.getP().getTagID() + " was found at GPS Location " + n.getP().getItem().getX() + ", " + n.getP().getItem().getY());
+		//gets item's TagID and info from "database" (X,T,Y) 
+		
+		//if item is found.....print out informations
+			//System.out.print("Owner X with Address Y is notified that Owner's item I with Tag ID T was found at GPS location G");
+			//set the status to "found" or "Registered"
+	}
 
 	// user logs in if they already have an existing account/will need this to log
 	// into another person's phone or device to find their item
@@ -152,11 +178,64 @@ public class Application {
 		return null;
 	}
 
-	public static void forgotUserAndPass(Node n) {
+	/*public static void forgotUserOrPass(Database d) {
+	Scanner kb = new Scanner(System.in);
+	String user = "";
+	String pass = "";
+	String email = "";
+	String a = "";
+	System.out.println("Did you forget your username or password?");
+	String input = kb.nextLine();
+	if (input.equalsIgnoreCase("username")) {
+		do {
+			System.out.println("Enter your email");
+			email = kb.nextLine();
+			if (email.equals(d.GETSOMETHINGFROMDATABASE)) {
+				SQ(d.GETSOMETHINGFROMDATABASE);// security questions
+				System.out.println(d.GETSOMETHINGFROMDATABASE);// gets username
+			} else {
+				System.out.println("We couldn't find that email. Would you like to try again? (y/n): ");
+				a = kb.nextLine();
+			}
+		} while (a.equalsIgnoreCase("y"));
+	}
+	else if (input.equalsIgnoreCase("password")) {
+		do {
+			System.out.println("Enter your username");
+			user = kb.nextLine();
+			if (user.equals(d.GETSOMETHINGFROMDATABASE)) {
+				SQ(d.GETSOMETHINGFROMDATABASE);// security questions
+				System.out.println(d.GETSOMETHINGFROMDATABASE);// gets password
+			} else {
+				System.out.println("We couldn't find that username. Would you like to try again? (y/n): ");
+				a = kb.nextLine();
+			}
+		} while (a.equalsIgnoreCase("y"));
+	} else
+		System.exit(0);
+	}*/
+	 
+	//DONT WORRY ABOUT THIS FOR NOW! (Will need to figure out how to make a draft email using a "textfile" to do this part)
+	/*System.out.print("\nSend Email Verification? (y/n): ");
+	email = kb.nextLine();
+	if (email == "y") {
+		n.getP().addEmail("Your username is " + n.getP().getUser() + "\nType in your new Password: ");
+		pass = kb.nextLine();
+		n.getP().setPass() = pass;
+	} else
+		System.exit(0);*/
+	
+	// send email verification (send the user an email/the email is a pre-written
+	// textfile that is read by the class)
+	// return username or prompt to change password
+    //}
+
+	/*public static void SQ(Node n)
+	{
 		Scanner kb = new Scanner(System.in);
-		String email = "";
-		String pass = "";
 		int tries = 1;
+	
+	
 		// ask security questions
 		System.out.println(n.getP().getSecurityQ1());
 		String answer1 = kb.nextLine();
@@ -183,19 +262,15 @@ public class Application {
 			System.out.print("Sorry, you have exceeded the amount of tries available.");
 			System.exit(0);
 		}
+	
+	}*/
+
+	public static void delete() {
 		
-		//DONT WORRY ABOUT THIS FOR NOW! (Will need to figure out how to make a draft email using a "textfile" to do this part)
-		/*System.out.print("\nSend email Verification? (y/n): ");
-		email = kb.nextLine();
-		if (email == "y") {
-			n.getP().addEmail("Your username is " + n.getP().getUser() + "\nType in your new Password: ");
-			pass = kb.nextLine();
-			n.getP().setPass() = pass;
-		} else
-			System.exit(0);*/
+	}
+	
+	//specify what info to change, Database
+	public static void changeInfo(Node n) {
 		
-		// send email verification (send the user an email/the email is a pre-written
-		// textfile that is read by the class)
-		// return username or prompt to change password
 	}
 }
