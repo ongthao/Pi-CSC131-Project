@@ -57,11 +57,12 @@ public class Application {
 			String address2 = token.nextToken();
 			String address3 = token.nextToken();
 			String email = token.nextToken();
+			String descript = token.nextToken();
 			int created1 = Integer.parseInt(token.nextToken());
 			String created2 = token.nextToken();
 			int created3 = Integer.parseInt(token.nextToken());
 			Person p = new Person(user, pass, phone, first + " " + last, birth1 + " " + birth2 + " " + birth3,
-					address1 + " " + address2 + " " + address3, email, created1 + " " + created2 + " " + created3, item);
+					address1 + " " + address2 + " " + address3, email, descript, created1 + " " + created2 + " " + created3, item);
 			Node n = new Node(p);
 			d = new Database(n);
 		}
@@ -89,11 +90,12 @@ public class Application {
 			String address2 = token1.next();
 			String address3 = token1.next();
 			String email = token1.next();
+			String descript = token1.next();
 			int created1 = token1.nextInt();
 			String created2 = token1.next();
 			int created3 = token1.nextInt();
 			Person p1 = new Person(user, pass, phone, first + " " + last, birth1 + " " + birth2 + " " + birth3,
-					address1 + " " + address2 + " " + address3, email, created1 + " " + created2 + " " + created3, item1);
+					address1 + " " + address2 + " " + address3, email, descript, created1 + " " + created2 + " " + created3, item1);
 			Node n1 = new Node(p1);
 			d.add(n1); 
 		}
@@ -140,6 +142,8 @@ public class Application {
 		String street2 = kb.next();
 		System.out.print("\nEmail: ");
 		String mail = kb.next();
+		System.out.print("\nWhat kind of item is it? (e.g. phone, laptop, notebook, etc.): ");
+		String it = kb.next();
 		System.out.print("\nToday's Date (in format of \"day month year\"; e.g. 12 January 1999): ");
 		int created1 = kb.nextInt();
 		String created2 = kb.next();
@@ -147,7 +151,7 @@ public class Application {
 		// all their info (the default "Person()" is just here as a placeholder, it
 		// should be changed to its actual constructor)
 		/* NEED TO DISCUSS "STATUS" and "SECURITY" VARIABLES! */
-		Person s = new Person(user, pass, phone, name + " " + name2, day + " " + month + " " + year, number + " " + street + " " + street2, mail, created1 + " " + created2 + " " + created3, val);
+		Person s = new Person(user, pass, phone, name + " " + name2, day + " " + month + " " + year, number + " " + street + " " + street2, mail, it, created1 + " " + created2 + " " + created3, val);
 		// create a node to add into database linked list
 		Node n = new Node(s);
 		d.add(n);
@@ -162,15 +166,15 @@ public class Application {
 		//sets item's status to "lost" in both the "database" and "valuableitem" classes
 		n.getP().getItem().setStatus("lost");
 		//then signals the item to beam location every 10 minutes for GPS location (valuableitem.itemLost() (G)
-		n.getP().getItem().lost();
-		System.out.print("Have you found your item yet? (y/n): ");
-		answer = kb.next();
-		if(answer.equalsIgnoreCase("y"))
-			n.getP().getItem().setStatus("found");
-		else
-			lost(n);
+		do{
+			n.getP().getItem().lost();
+			System.out.print("Have you found your item yet? (y/n): \n");
+			answer = kb.next();
+			if(answer.equalsIgnoreCase("y"))
+				n.getP().getItem().setStatus("found");
+		}while(n.getP().getItem().getStatus().equalsIgnoreCase("lost"));
 		if(n.getP().getItem().getStatus().equalsIgnoreCase("found"))
-			System.out.print("\nOwner " + n.getP().getUser() + " with Address " + n.getP().getAddress() + " is notified that Owner's item " + n.getP().getItem() + " with Tag ID " + n.getP().getTagID() + " was found at GPS Location " + n.getP().getItem().getX() + ", " + n.getP().getItem().getY());
+			System.out.print("\nOwner " + n.getP().getUser() + " with Address " + n.getP().getAddress() + " is notified that Owner's " + n.getP().getDescript() + " with Tag ID " + n.getP().getTagID() + " was found at GPS Location " + n.getP().getItem().getX() + ", " + n.getP().getItem().getY() + ".");
 		//gets item's TagID and info from "database" (X,T,Y) 
 		
 		//if item is found.....print out informations

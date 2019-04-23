@@ -15,6 +15,7 @@ public class Person {
 	private String answer2;
 	private String created; //keeps track of the time and date in which the person registered their info
 	private String email;
+	private String descript; //the variable that defines what the variable is
 	private ValuableItem item;
 	
 	//don't really need this default method, it is just a placeholder so we don't get an error in the driver. 
@@ -24,7 +25,7 @@ public class Person {
 	}
 	
 	//constructor method for Person object
-	public Person(String user, String pass, String phone, String actualName, String birth, String address, String email, String created, ValuableItem item) {
+	public Person(String user, String pass, String phone, String actualName, String birth, String address, String email, String descript, String created, ValuableItem item) {
 		username = user;
 		password = pass;
 		this.item = item;
@@ -37,6 +38,7 @@ public class Person {
 		//this.security2 = security2; //after 2 weeks
 		this.created = created; //should set "created" to the time it this object was created
 		this.email = email; 
+		this.descript = descript;
 	}
 	
 	//create setter and getter methods for ALL of the instance variables
@@ -54,6 +56,10 @@ public class Person {
 	
 	public String getAnswer2() {
 		return answer2;
+	}
+	
+	public String getDescript() {
+		return descript;
 	}
 	
 	public ValuableItem getItem() {
@@ -130,6 +136,6 @@ public class Person {
 	
 	//returns all of the user's information in one line (thinking about printing the whole database "table" style)
 	public String toString() {
-		return tagID + item.getStatus() + item.getX() + item.getY() + username + password + phoneNum + actualName + birth + address + email + created;
+		return tagID + item.getStatus() + item.getX() + item.getY() + username + password + phoneNum + actualName + birth + address + email + descript + created;
 	}
 }
