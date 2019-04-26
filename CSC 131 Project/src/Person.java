@@ -11,8 +11,8 @@ public class Person {
 	private String address;
 	private String security1;
 	private String answer1;
-	private String security2;
-	private String answer2;
+	//private String security2;
+	//private String answer2;
 	private String created; //keeps track of the time and date in which the person registered their info
 	private String email;
 	private String descript; //the variable that defines what the variable is
@@ -25,7 +25,7 @@ public class Person {
 	}
 	
 	//constructor method for Person object
-	public Person(String user, String pass, String phone, String actualName, String birth, String address, String email, String descript, String created, ValuableItem item) {
+	public Person(String user, String pass, String phone, String actualName, String birth, String address, String email, String descript, String created, ValuableItem item, String security1, String answer1) {
 		username = user;
 		password = pass;
 		this.item = item;
@@ -34,7 +34,8 @@ public class Person {
 		this.actualName = actualName;
 		this.birth = birth;
 		this.address = address;
-		//this.security1 = security1; //after 2 weeks
+		this.security1 = security1; 
+		this.answer1 = answer1;
 		//this.security2 = security2; //after 2 weeks
 		this.created = created; //should set "created" to the time it this object was created
 		this.email = email; 
@@ -46,17 +47,17 @@ public class Person {
 		return security1;
 	}
 	
-	public String getSecurityQ2() {
+	/*public String getSecurityQ2() {
 		return security2;
-	}
+	}*/
 	
 	public String getAnswer1() {
 		return answer1;
 	}
 	
-	public String getAnswer2() {
+	/*public String getAnswer2() {
 		return answer2;
-	}
+	}*/
 	
 	public String getDescript() {
 		return descript;
@@ -136,6 +137,6 @@ public class Person {
 	
 	//returns all of the user's information in one line (thinking about printing the whole database "table" style)
 	public String toString() {
-		return tagID + item.getStatus() + item.getX() + item.getY() + username + password + phoneNum + actualName + birth + address + email + descript + created;
+		return tagID + " " + item.getStatus() + " " + item.getX() + " " + item.getY() + " " + username + " " + password + " " + phoneNum + " " + actualName + " " + birth + " " + address + " " + email + " " + descript + " " + created + "\n" + security1 + "\n" + answer1 +  " " + "\n";
 	}
 }

@@ -61,8 +61,10 @@ public class Application {
 			int created1 = Integer.parseInt(token.nextToken());
 			String created2 = token.nextToken();
 			int created3 = Integer.parseInt(token.nextToken());
+			String Q1 = input.nextLine();
+			String answer = input.nextLine();
 			Person p = new Person(user, pass, phone, first + " " + last, birth1 + " " + birth2 + " " + birth3,
-					address1 + " " + address2 + " " + address3, email, descript, created1 + " " + created2 + " " + created3, item);
+					address1 + " " + address2 + " " + address3, email, descript, created1 + " " + created2 + " " + created3, item, Q1, answer);
 			Node n = new Node(p);
 			d = new Database(n);
 		}
@@ -94,8 +96,10 @@ public class Application {
 			int created1 = token1.nextInt();
 			String created2 = token1.next();
 			int created3 = token1.nextInt();
+			String Q1 = input.nextLine();
+			String answer = input.nextLine();
 			Person p1 = new Person(user, pass, phone, first + " " + last, birth1 + " " + birth2 + " " + birth3,
-					address1 + " " + address2 + " " + address3, email, descript, created1 + " " + created2 + " " + created3, item1);
+					address1 + " " + address2 + " " + address3, email, descript, created1 + " " + created2 + " " + created3, item1, Q1, answer);
 			Node n1 = new Node(p1);
 			d.add(n1); 
 		}
@@ -148,10 +152,42 @@ public class Application {
 		int created1 = kb.nextInt();
 		String created2 = kb.next();
 		int created3 = kb.nextInt();
+		String sec1 = "What is your favorite hobby?";
+		String sec2 = "What was your childhood nickname?";
+		String sec3 = "Where were you born?";
+		System.out.println("Please choose your security question: ");
+		System.out.println("1) " + sec1);
+		System.out.println("2) " + sec2);
+		System.out.println("3) " + sec3);
+		int select = kb.nextInt();
+		String answer = "";
+		String Q1 = "";
+		switch(select) {
+			case 1:
+				Q1 = sec1;
+				System.out.print(sec1 + " ");
+				answer = kb.nextLine();
+				kb.next();
+				break;
+			case 2:
+				Q1 = sec2;
+				System.out.print(sec2 + " ");
+				answer = kb.nextLine();
+				kb.next();
+				break;
+			case 3:
+				Q1 = sec3;
+				System.out.print(sec3 + " ");
+				answer = kb.nextLine();
+				kb.next();
+				break;
+			default:
+				System.out.print("No security question listed above was selected");
+		}
 		// all their info (the default "Person()" is just here as a placeholder, it
 		// should be changed to its actual constructor)
 		/* NEED TO DISCUSS "STATUS" and "SECURITY" VARIABLES! */
-		Person s = new Person(user, pass, phone, name + " " + name2, day + " " + month + " " + year, number + " " + street + " " + street2, mail, it, created1 + " " + created2 + " " + created3, val);
+		Person s = new Person(user, pass, phone, name + " " + name2, day + " " + month + " " + year, number + " " + street + " " + street2, mail, it, created1 + " " + created2 + " " + created3, val, Q1, answer);
 		// create a node to add into database linked list
 		Node n = new Node(s);
 		d.add(n);

@@ -19,10 +19,6 @@ public class Database {
 		front = n;
 	}
 	
-	public void isLost() {
-		
-	}
-	
 	//adds a new node to the database
 	public void add(Node n) throws IOException{
 		n.setHead(front);
