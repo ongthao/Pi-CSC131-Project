@@ -4,44 +4,55 @@ import java.io.FileWriter;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.BufferedReader;
+import java.util.*;
 
 //purpose of this class is to use Person objects to add people onto the database using linked lists or arraylist
 public class Database {
-	private Node front;
+	private class SortDatabase implements Comparator<Node>
+	{
+		public int compare(Node a, Node b)
+		{
+			return a.getP().getTagID() - b.getP().getTagID();
+		}
+	}
+	
+	private LinkedList<Node> front;
 	//private String FILENAME = "include/database.txt";
 	//private File text = new File(FILENAME);
 	public Database() {
-		front = null;
+		front = new LinkedList<Node>();
 	}
 	
 	//constructor method
 	public Database(Node n) {
-		front = n;
+		front = new LinkedList<Node>();
+		
+		n.setHead(null);
+		front.add(n);
 	}
 	
 	//adds a new node to the database
 	public void add(Node n) throws IOException{
-		n.setHead(front);
-		front = n;
+		n.setHead(null);
+		front.add(n);
 		
 		writeToFile();
 	}
 	
 	//getter and setter methods
 	public void setFront(Node n) {
-		front = n;
+		n.setHead(null);
+		front.set(0, n);
 	}
 	
 	public Node getFront() {
-		return front;
+		return front.getFirst();
 	}
 	
 	//purpose of this method is to delete a user's account information when requested (can use user's "name" as an identifier for whose info wants to be deleted)
 	public void delete(Node n) throws IOException{
-		Node i;
-		
-		for (i = front; i.getHead() != n; i = i.getHead()) {}
-		i.setHead(i.getHead().getHead());
+		n.setHead(null);
+		front.remove(n);
 		
 		writeToFile();
 	}
@@ -51,17 +62,22 @@ public class Database {
 	}
 	
 	private void writeToFile() throws IOException{
-		for (Node n = front; n.getHead() != null; n = n.getHead())
+		for (int i = 0; i < front.size(); i++)
 		{
-			if(n.getP()== null) {
+			if(front.get(i).getP()== null) {
 	            System.out.print("This node is empty");
 	        }
 	        else {
-	        	BufferedWriter writer = new BufferedWriter(new FileWriter(new File(/*n.getUsername()*/ "user1" + ".txt")));
-	            writer.write(PtoS(n.getP()));
+	        	BufferedWriter writer = new BufferedWriter(new FileWriter(new File(/*front.get(i).getUsername()*/ "user1" + ".txt")));
+	            writer.write(PtoS(front.get(i).getP()));
 	            writer.close();
 	        }
 		}
+	}
+	
+	private void sort()
+	{
+		Collections.sort(front, new SortDatabase());
 	}
 	
 	private String PtoS(Person p)
