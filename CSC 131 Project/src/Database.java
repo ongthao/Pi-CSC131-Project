@@ -62,17 +62,17 @@ public class Database {
 	}
 	
 	private void writeToFile() throws IOException{
+    	BufferedWriter writer = new BufferedWriter(new FileWriter(new File(/*front.get(i).getUsername()*/ "Testfile" + ".txt")));
 		for (int i = 0; i < front.size(); i++)
 		{
 			if(front.get(i).getP()== null) {
 	            System.out.print("This node is empty");
 	        }
 	        else {
-	        	BufferedWriter writer = new BufferedWriter(new FileWriter(new File(/*front.get(i).getUsername()*/ "user1" + ".txt")));
 	            writer.write(PtoS(front.get(i).getP()));
-	            writer.close();
 	        }
 		}
+		writer.close();
 	}
 	
 	private void sort()

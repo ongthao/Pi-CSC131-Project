@@ -12,8 +12,12 @@ public class Application {
 			if (input.equalsIgnoreCase("1") || input.equalsIgnoreCase("register")) {
 				register(d, kb);
 				System.out.print("Your account has been registered. Do you want to log in? ");
-				if(kb.next().equalsIgnoreCase("yes"))
-					logIn(d, kb);
+				if(kb.next().equalsIgnoreCase("yes")) {
+					Node n = null;
+					do {
+						n = logIn(d, kb);
+					}while(n == null);
+				}
 			}else if (input.equalsIgnoreCase("2") || input.equalsIgnoreCase("log in")) {
 				//"n" now represents the current user that is registered. 
 				Node n = logIn(d,kb);
@@ -122,7 +126,6 @@ public class Application {
 				}
 			}
 		}
-		System.out.print(tag);
 		double x = r.nextDouble() + 10;
 		double y = r.nextDouble() + 10;
 		ValuableItem val = new ValuableItem(tag, "registered", x, y); // ****only temp****
@@ -162,28 +165,20 @@ public class Application {
 		int select = kb.nextInt();
 		String answer = "";
 		String Q1 = "";
-		switch(select) {
-			case 1:
+		if(select == 1) {
 				Q1 = sec1;
 				System.out.print(sec1 + " ");
 				answer = kb.nextLine();
-				kb.next();
-				break;
-			case 2:
+		} else if(select == 2) {
 				Q1 = sec2;
 				System.out.print(sec2 + " ");
 				answer = kb.nextLine();
-				kb.next();
-				break;
-			case 3:
+		} else if(select == 3) {
 				Q1 = sec3;
 				System.out.print(sec3 + " ");
 				answer = kb.nextLine();
-				kb.next();
-				break;
-			default:
+		}else 
 				System.out.print("No security question listed above was selected");
-		}
 		// all their info (the default "Person()" is just here as a placeholder, it
 		// should be changed to its actual constructor)
 		/* NEED TO DISCUSS "STATUS" and "SECURITY" VARIABLES! */
@@ -243,67 +238,51 @@ public class Application {
 		return null;
 	}
 
-	/*public static void forgotUserOrPass(Database d) {
-	Scanner kb = new Scanner(System.in);
-	String user = "";
-	String pass = "";
-	String email = "";
-	String a = "";
-	System.out.println("Did you forget your username or password?");
-	String input = kb.nextLine();
-	if (input.equalsIgnoreCase("username")) {
-		do {
-			System.out.println("Enter your email");
-			email = kb.nextLine();
-			if (email.equals(d.GETSOMETHINGFROMDATABASE)) {
-				SQ(d.GETSOMETHINGFROMDATABASE);// security questions
-				System.out.println(d.GETSOMETHINGFROMDATABASE);// gets username
-			} else {
+	public static void forgotUserOrPass(Database d) {
+		Scanner kb = new Scanner(System.in);
+		String user = "";
+		String pass = "";
+		String email = "";
+		String a = "";
+		int i, j;
+		System.out.println("Did you forget your username or password?");
+		String input = kb.nextLine();
+		if (input.equalsIgnoreCase("username")) {
+			do {
+				System.out.println("Enter your email");
+				email = kb.nextLine();
+				for(i=0; i<d.size(); i++)
+				{
+					if (email.equals(d.getP().getEmail())) {
+						SQ(d[i]);// security questions
+						System.out.println(d[i].getP().getUser());// gets username
+					}
+				}
 				System.out.println("We couldn't find that email. Would you like to try again? (y/n): ");
 				a = kb.nextLine();
-			}
-		} while (a.equalsIgnoreCase("y"));`
-	}
-	else if (input.equalsIgnoreCase("password")) {
-		do {
-			System.out.println("Enter your username");
-			user = kb.nextLine();
-			if (user.equals(d.GETSOMETHINGFROMDATABASE)) {
-				SQ(d.GETSOMETHINGFROMDATABASE);// security questions
-				System.out.println(d.GETSOMETHINGFROMDATABASE);// gets password
-			} else {
+			} while (a.equalsIgnoreCase("y"));
+		}
+		else if (input.equalsIgnoreCase("password")) {
+			do {
+				System.out.println("Enter your username");
+				user = kb.nextLine();
+				for(j=0; j<d.size(); j++)
+				{
+					if (user.equals(d[j].getP().getUser())) {
+						SQ(d[j]);// security questions
+						System.out.println(d[j].getP().getPass());// gets password
+				} 
 				System.out.println("We couldn't find that username. Would you like to try again? (y/n): ");
 				a = kb.nextLine();
-			}
-		} while (a.equalsIgnoreCase("y"));
-	} else
-		System.exit(0);
-	}*/
-	 
-	//DONT WORRY ABOUT THIS FOR NOW! (Will need to figure out how to make a draft email using a "textfile" to do this part)
-	/*System.out.print("\nSend Email Verification? (y/n): ");
-	email = kb.nextLine();
-	if (email == "y") {
-		n.getP().addEmail("Your username is " + n.getP().getUser() + "\nType in your new Password: ");
-		pass = kb.nextLine();
-		n.getP().setPass() = pass;
-	} else
-		System.exit(0);*/
-	
-	// send email verification (send the user an email/the email is a pre-written
-	// textfile that is read by the class)
-	// return username or prompt to change password
-    //}
-
-	/*public static void SQ(Node n)
-	{
+			} while (a.equalsIgnoreCase("y"));
+		} else
+			System.exit(0);
+	}
+	public static void SQ(Node n){
 		Scanner kb = new Scanner(System.in);
-		int tries = 1;
-	
-	
+		int tries = 1;	
 		// ask security questions
-		System.out.println(n.getP().getSecurityQ1());
-		String answer1 = kb.nextLine();
+		System.out.println(n.getP().getSecurityQ1());		String answer1 = kb.nextLine();
 		while (answer1 != n.getP().getAnswer1() & tries != 4) {
 			System.out.print("Incorrect Answer. Please Try Again");
 			System.out.println(n.getP().getSecurityQ1());
@@ -314,21 +293,7 @@ public class Application {
 			System.out.print("Sorry, you have exceeded the amount of tries available.");
 			System.exit(0);
 		}
-		tries = 1;
-		System.out.println(n.getP().getSecurityQ2());
-		String answer2 = kb.nextLine();
-		while (answer2 != n.getP().getAnswer2() & tries != 4) {
-			System.out.print("Incorrect Answer. Please Try Again");
-			System.out.println(n.getP().getSecurityQ2());
-			//String answer2 = kb.nextLine(); *****DUPLICATE OF LINE 177*****
-			tries += 1;
-		}
-		if (tries == 4) {
-			System.out.print("Sorry, you have exceeded the amount of tries available.");
-			System.exit(0);
-		}
-	
-	}*/
+	}
 
 	public static void options() {
 		//provide a list of options for a user that is logged in
