@@ -294,11 +294,6 @@ public class Application {
 			System.exit(0);
 		}
 	}
-
-	public static void options() {
-		//provide a list of options for a user that is logged in
-		//options includes: finding a lost item, deleting their account, updating their account information, etc.
-	}
 	
 	public static void delete() {
 		
