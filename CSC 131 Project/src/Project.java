@@ -43,6 +43,7 @@ public class Project implements ActionListener
    static String it;
    static String created;
    static String answer;
+   static String reset = "";
    static int count;
    static int loginError;
    static boolean fail;
@@ -96,7 +97,7 @@ public class Project implements ActionListener
        JLabel forget4 = new JLabel("<html><font size=5><b>Please enter your Email Address</b></html>", JLabel.CENTER);
        JLabel forget5 = new JLabel("<html><font size=10><b>Forgot Password</b></html>", JLabel.CENTER);
        JLabel forget6 = new JLabel("<html><font size=5><b>Please Enter your Username</b></html>", JLabel.CENTER);
-       JLabel loginMenu = new JLabel("<html><font size=5><b>Login Menu</b></html>", JLabel.CENTER);
+       JLabel loginMenu = new JLabel("<html><font size=10><b>Login Menu</b></html>", JLabel.CENTER);
        JLabel pickLabel = new JLabel("<html><font size=5><b>Please Pick the Security Question you prefer.</b></html>", JLabel.CENTER);
        
        ActionListener AL = new Project();
@@ -417,7 +418,12 @@ public class Project implements ActionListener
          
          /*a.register(user, pass, num, first, last, birth, ,mail, it, created, 
          
-         String reset = "";
+         count++; */
+      }
+      
+      //Go back to Main Menu from Register
+      if (source==button[5])
+      {
          username.setText(reset);
          password.setText(reset);
          phone.setText(reset);
@@ -425,15 +431,8 @@ public class Project implements ActionListener
          lastName.setText(reset);
          dateOfBirth.setText("MMDDYYYY");
          email.setText(reset);
-         it.setText(reset);
+         itTF.setText(reset);
          date.setText("MMDDYYYY");
-         
-         count++; */
-      }
-      
-      //Go back to Main Menu
-      if (source==button[5])
-      {
          cardLayout.show(contentPane, "panel 0"); return;
       }
       
@@ -451,6 +450,8 @@ public class Project implements ActionListener
       //Go back to main menu
       if (source==button[7]) 
       {
+         userLogin.setText(reset);
+         passLogin.setText(reset);
          cardLayout.show(contentPane, "panel 0"); return;
       } 
       
@@ -501,6 +502,7 @@ public class Project implements ActionListener
       //Return to "Forgot User and Pass" Panel from Forgot User
       if (source==button[16]) 
       {
+         email2.setText(reset);
          cardLayout.show(contentPane, "panel 13"); return;
       }
       
@@ -513,56 +515,73 @@ public class Project implements ActionListener
       //Return to "Forgot User and Pass" Panel from Forgot Pass
       if (source==button[18]) 
       {
+         username2.setText(reset);
          cardLayout.show(contentPane, "panel 13"); return;
       }
       
+      //Go to Security Question 1
       if (source==button[19]) 
       {
          cardLayout.show(contentPane, "panel 35"); return;
       }
       
+      //Go to Security Question 2
       if (source==button[20]) 
       {
          cardLayout.show(contentPane, "panel 39"); return;
       }
       
+      //Go to Security Question 3
       if (source==button[21]) 
       {
          cardLayout.show(contentPane, "panel 43"); return;
       }
       
+      //Go Back to Registration 
       if (source==button[22]) 
       {
          cardLayout.show(contentPane, "panel 5"); return;
       }
       
+      //Complete Registration with Question 1
       if (source==button[23]) 
       {
-         cardLayout.show(contentPane, "panel 5"); return;
+         JOptionPane.showMessageDialog(frame, "You have Successfully Registered!");
+         cardLayout.show(contentPane, "panel 31"); return;
       }
       
+      //Return to "Pick Security Questions" From Question 1
       if (source==button[24]) 
       {
+         security1.setText(reset);
          cardLayout.show(contentPane, "panel 31"); return;
       }
       
+      //Complete Registration with Question 2
       if (source==button[25]) 
       {
+         JOptionPane.showMessageDialog(frame, "You have Successfully Registered!");
          cardLayout.show(contentPane, "panel 31"); return;
       }
       
+      //Return to "Pick Security Questions" From Question 2
       if (source==button[26]) 
       {
+         security2.setText(reset);
          cardLayout.show(contentPane, "panel 31"); return;
       }
       
+      //Complete Registration with Question 3
       if (source==button[27]) 
       {
+         JOptionPane.showMessageDialog(frame, "You have Successfully Registered!");
          cardLayout.show(contentPane, "panel 31"); return;
       }
       
+      //Return to "Pick Security Questions" From Question 3
       if (source==button[28]) 
       {
+         security3.setText(reset);
          cardLayout.show(contentPane, "panel 31"); return;
       }
    }
