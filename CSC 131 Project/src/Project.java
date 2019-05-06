@@ -34,7 +34,7 @@ public class Project implements ActionListener
    static JButton button[] = new JButton[100];
    static JPanel panel[] = new JPanel[60];
    static JPanel Blank[] = new JPanel[20];
-   static Application[] array = new Application[100];
+   static Person[] array = new Person[100];
    static String user;
    static String pass;
    static String num;
@@ -50,7 +50,7 @@ public class Project implements ActionListener
    static int loginError;
    static int Q1; 
    static boolean fail;
-   static Database d = update();
+   //static Database d = update();
 
    
    public static void main(String[] args)
@@ -374,7 +374,7 @@ public class Project implements ActionListener
        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
    }
    
-   public static Database update() throws IOException{
+   /*public static Database update() throws IOException{
 	
 		// reading from the text file create the appropriate objects to update the database.
 		File f = new File("Testfile.txt");
@@ -396,7 +396,7 @@ public class Project implements ActionListener
 			String birth = token.nextToken();
 			/*int address1 = Integer.parseInt(token.nextToken());
 			String address2 = token.nextToken();
-			String address3 = token.nextToken();*/
+			String address3 = token.nextToken();
 			String email = token.nextToken();
 			String descript = token.nextToken();
 			String created = token.nextToken();
@@ -406,7 +406,7 @@ public class Project implements ActionListener
                                descript, created, item, Q1, answer);
 			Node n = new Node(p);
 			d = new Database(n);
-		}
+		} 
 		
 		
 		// adding the new users to the database after the admin account
@@ -427,7 +427,7 @@ public class Project implements ActionListener
 			String birth = token1.next();
 			/*int address1 = token1.nextInt();
 			String address2 = token1.next();
-			String address3 = token1.next(); */
+			String address3 = token1.next(); 
 			String email = token1.next();
 			String descript = token1.next();
 			String created = token1.next();
@@ -439,10 +439,10 @@ public class Project implements ActionListener
 			d.add(n1); 
 		}
 		return d;
-	}
+	} */
 
    
-   public void actionPerformed(ActionEvent e) 
+   public void actionPerformed(ActionEvent e)
    {
       Object source = e.getSource();
       
@@ -609,13 +609,13 @@ public class Project implements ActionListener
       }
       
       //Complete Registration with Question 1
-      if (source==button[23]) 
+      if (source==button[23])  
       {
          Application a = new Application();
          Q1 = 1;
          answer = security1.getText();
       
-         a.register(d, user, pass, num, first, last, birth, mail, it, created, Q1, answer);  
+         //a.register(d, user, pass, num, first, last, birth, mail, it, created, Q1, answer);  
          
          count++; 
       
