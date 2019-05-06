@@ -3,9 +3,11 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.awt.Container;
 import java.io.*;
-import javax.swing.JOptionPane; 
+import javax.swing.JOptionPane;
+import java.util.Scanner; 
+import java.util.StringTokenizer;
 
-public class Project implements ActionListener
+public class Project implements ActionListener 
 {
    static JFrame frame = new JFrame("Find my Item"); 
    static Container contentPane = frame.getContentPane();
@@ -32,7 +34,7 @@ public class Project implements ActionListener
    static JButton button[] = new JButton[100];
    static JPanel panel[] = new JPanel[60];
    static JPanel Blank[] = new JPanel[20];
-   static Person[] array = new Person[100];
+   static Application[] array = new Application[100];
    static String user;
    static String pass;
    static String num;
@@ -46,15 +48,15 @@ public class Project implements ActionListener
    static String reset = "";
    static int count;
    static int loginError;
+   static int Q1; 
    static boolean fail;
+   static Database d = update();
 
    
    public static void main(String[] args)
    {
        contentPane = (JPanel) frame.getContentPane();
        contentPane.setLayout(cardLayout=new CardLayout());
-       
-       //Database d = array[0].update();
        
        JLabel reg1 = new JLabel("<html><font size=10><b>Register your item</b></html>", JLabel.CENTER);
        JLabel reg2 = new JLabel("<html><font size=10><b>Register your item</b></html>", JLabel.CENTER);
@@ -372,6 +374,74 @@ public class Project implements ActionListener
        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
    }
    
+   public static Database update() throws IOException{
+	
+		// reading from the text file create the appropriate objects to update the database.
+		File f = new File("Testfile.txt");
+		Scanner input = new Scanner(f);		
+		StringTokenizer token = new StringTokenizer(input.nextLine());
+		Database d = new Database();
+		while (token.hasMoreTokens()) {
+			int tagID = Integer.parseInt(token.nextToken());
+			String status = token.nextToken();
+			double x = Double.parseDouble(token.nextToken());
+			double y = Double.parseDouble(token.nextToken());
+			ValuableItem item = new ValuableItem(tagID, status, x, y);
+			
+			String user = token.nextToken();
+			String pass = token.nextToken();
+			String phone = token.nextToken();
+			String first = token.nextToken();
+			String last = token.nextToken();
+			String birth = token.nextToken();
+			/*int address1 = Integer.parseInt(token.nextToken());
+			String address2 = token.nextToken();
+			String address3 = token.nextToken();*/
+			String email = token.nextToken();
+			String descript = token.nextToken();
+			String created = token.nextToken();
+			int Q1 = Integer.parseInt(token.nextToken());
+			String answer = input.nextLine();
+			Person p = new Person(user, pass, phone, first + " " + last, birth , email, 
+                               descript, created, item, Q1, answer);
+			Node n = new Node(p);
+			d = new Database(n);
+		}
+		
+		
+		// adding the new users to the database after the admin account
+		while (input.hasNextLine()) {
+			String line = input.nextLine();
+			Scanner token1 = new Scanner(line);
+			int tagID = Integer.parseInt(token1.next());
+			String status = token1.next();
+			double x = token1.nextDouble();
+			double y = token1.nextDouble();
+			ValuableItem item1 = new ValuableItem(tagID, status, x, y);
+			
+			String user = token1.next();
+			String pass = token1.next();
+			String phone = token1.next();
+			String first = token1.next();
+			String last = token1.next();
+			String birth = token1.next();
+			/*int address1 = token1.nextInt();
+			String address2 = token1.next();
+			String address3 = token1.next(); */
+			String email = token1.next();
+			String descript = token1.next();
+			String created = token1.next();
+			int Q1 = token1.nextInt();
+			String answer = token1.next();
+			Person p1 = new Person(user, pass, phone, first + " " + last, birth , email, 
+                               descript, created, item1, Q1, answer);
+         Node n1 = new Node(p1);
+			d.add(n1); 
+		}
+		return d;
+	}
+
+   
    public void actionPerformed(ActionEvent e) 
    {
       Object source = e.getSource();
@@ -403,7 +473,6 @@ public class Project implements ActionListener
       //Register a user (Do Later)
       if (source==button[4]) 
       {
-         //Application a = new Application();
          user = username.getText();
          pass = password.getText();
          num = phone.getText();
@@ -415,10 +484,6 @@ public class Project implements ActionListener
          created = date.getText();
          
          cardLayout.show(contentPane, "panel 31"); return;
-         
-         /*a.register(user, pass, num, first, last, birth, ,mail, it, created, 
-         
-         count++; */
       }
       
       //Go back to Main Menu from Register
@@ -546,8 +611,16 @@ public class Project implements ActionListener
       //Complete Registration with Question 1
       if (source==button[23]) 
       {
+         Application a = new Application();
+         Q1 = 1;
+         answer = security1.getText();
+      
+         a.register(d, user, pass, num, first, last, birth, mail, it, created, Q1, answer);  
+         
+         count++; 
+      
          JOptionPane.showMessageDialog(frame, "You have Successfully Registered!");
-         cardLayout.show(contentPane, "panel 31"); return;
+         cardLayout.show(contentPane, "panel 0"); return;
       }
       
       //Return to "Pick Security Questions" From Question 1
@@ -561,7 +634,7 @@ public class Project implements ActionListener
       if (source==button[25]) 
       {
          JOptionPane.showMessageDialog(frame, "You have Successfully Registered!");
-         cardLayout.show(contentPane, "panel 31"); return;
+         cardLayout.show(contentPane, "panel 0"); return;
       }
       
       //Return to "Pick Security Questions" From Question 2
@@ -575,7 +648,7 @@ public class Project implements ActionListener
       if (source==button[27]) 
       {
          JOptionPane.showMessageDialog(frame, "You have Successfully Registered!");
-         cardLayout.show(contentPane, "panel 31"); return;
+         cardLayout.show(contentPane, "panel 0"); return;
       }
       
       //Return to "Pick Security Questions" From Question 3
