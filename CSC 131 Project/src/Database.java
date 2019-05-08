@@ -15,7 +15,6 @@ public class Database {
 			return a.getP().getTagID() - b.getP().getTagID();
 		}
 	}
-	
 	private LinkedList<Node> front;
 	//private String FILENAME = "include/database.txt";
 	//private File text = new File(FILENAME);
@@ -35,7 +34,6 @@ public class Database {
 	public void add(Node n) throws IOException{
 		n.setHead(null);
 		front.add(n);
-		
 		writeToFile();
 	}
 	

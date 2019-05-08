@@ -137,6 +137,6 @@ public class Person {
 	
 	//returns all of the user's information in one line (thinking about printing the whole database "table" style)
 	public String toString() {
-		return tagID + " " + item.getStatus() + " " + item.getX() + " " + item.getY() + " " + username + " " + password + " " + phoneNum + " " + actualName + " " + birth + " " + address + " " + email + " " + descript + " " + created + "\n" + security1 + "\n" + answer1 + "\n";
+		return "\n" + tagID + " " + item.getStatus() + " " + item.getX() + " " + item.getY() + " " + username + " " + password + " " + phoneNum + " " + actualName + " " + birth + " " + address + " " + email + " " + descript + " " + created + "\n" + security1 + "\n" + answer1;
 	}
 }

@@ -9,28 +9,37 @@ public class Application {
 		System.out.println("Welcome to Pie Device Locator.\nPlease select an option:\n1. Register\n2. Log In\n3. Forget Username and Password"); 
 		String input = kb.next(); 
 		//while(input.equalsIgnoreCase("1") || input.equalsIgnoreCase("Register") || input.equalsIgnoreCase("2") || input.equalsIgnoreCase("Log In"))  {
-			if (input.equalsIgnoreCase("1") || input.equalsIgnoreCase("register")) {
-				register(d, kb);
-				System.out.print("Your account has been registered. Do you want to log in? ");
-				if(kb.next().equalsIgnoreCase("yes")) {
-					Node n = null;
-					do {
-						n = logIn(d, kb);
-					}while(n == null);
-				}
-			}else if (input.equalsIgnoreCase("2") || input.equalsIgnoreCase("log in")) {
-				//"n" now represents the current user that is registered. 
+		if (input.equalsIgnoreCase("1") || input.equalsIgnoreCase("register")) {
+			register(d, kb);
+			System.out.print("Your account has been registered. Do you want to log in? ");
+			if(kb.next().equalsIgnoreCase("yes")) {
 				Node n = logIn(d,kb);
 				System.out.print("\nIs your device lost? (yes/no) ");
 				String answer = kb.next();
-				if (answer.equalsIgnoreCase("yes")) {
+				if (answer.equalsIgnoreCase("yes"))
 					lost(n);
-				}else {
-					System.out.println("\n\nThank you for using this application!");
-				}
-			}else {
-				//forgotUserOrPass(d);
 			}
+		}else if (input.equalsIgnoreCase("2") || input.equalsIgnoreCase("log in")) {
+			//"n" now represents the current user that is registered. 
+			Node n = logIn(d,kb);
+			System.out.print("\nIs your device lost? (yes/no) ");
+			String answer = kb.next();
+			if (answer.equalsIgnoreCase("yes"))
+				lost(n);
+		}else {
+			forgotUserOrPass(d);
+			System.out.print("Would you like to try logging in? (y/n)");
+			String ans = kb.next();
+			if(ans.equalsIgnoreCase("y")) {
+				Node n = logIn(d, kb);
+				System.out.print("\nIs your device lost? (yes/no) ");
+				String answer = kb.next();
+				if (answer.equalsIgnoreCase("yes"))
+					lost(n);
+			}
+		}
+		System.out.println("\nThank you for using this application!");
+		System.exit(0);
 		//System.out.println("Not a valid option, try again");
 	}
 	// purpose of this method is to create a database of values we are getting from
@@ -167,21 +176,18 @@ public class Application {
 		String Q1 = "";
 		if(select == 1) {
 				Q1 = sec1;
-				System.out.print(sec1 + " ");
-				answer = kb.nextLine();
+				System.out.println(sec1 +  " (One word reply please)");
+				answer = kb.next();
 		} else if(select == 2) {
 				Q1 = sec2;
-				System.out.print(sec2 + " ");
-				answer = kb.nextLine();
+				System.out.println(sec2 +  " (One word reply please)");
+				answer = kb.next();
 		} else if(select == 3) {
 				Q1 = sec3;
-				System.out.print(sec3 + " ");
-				answer = kb.nextLine();
+				System.out.println(sec3 + " (One word reply please)");
+				answer = kb.next();
 		}else 
 				System.out.print("No security question listed above was selected");
-		// all their info (the default "Person()" is just here as a placeholder, it
-		// should be changed to its actual constructor)
-		/* NEED TO DISCUSS "STATUS" and "SECURITY" VARIABLES! */
 		Person s = new Person(user, pass, phone, name + " " + name2, day + " " + month + " " + year, number + " " + street + " " + street2, mail, it, created1 + " " + created2 + " " + created3, val, Q1, answer);
 		// create a node to add into database linked list
 		Node n = new Node(s);
@@ -251,12 +257,23 @@ public class Application {
 			do {
 				System.out.println("Enter your email");
 				email = kb.nextLine();
-				for(i=0; i<d.size(); i++)
+				/*for(i=0; i<d.getSize(); i++)
 				{
 					if (email.equals(d.getP().getEmail())) {
 						SQ(d[i]);// security questions
 						System.out.println(d[i].getP().getUser());// gets username
 					}
+				}*/
+				//use while loop to check nodes
+				Node curr = d.getFront();
+				while(curr != null) {
+					if(email.equals(curr.getP().getEmail())) {
+						SQ(curr);
+						System.out.println("This is your username: " + curr.getP().getUser());
+						return;
+					}
+					else
+						curr = curr.getHead();
 				}
 				System.out.println("We couldn't find that email. Would you like to try again? (y/n): ");
 				a = kb.nextLine();
@@ -266,12 +283,23 @@ public class Application {
 			do {
 				System.out.println("Enter your username");
 				user = kb.nextLine();
-				for(j=0; j<d.size(); j++)
+				/*for(j=0; j<d.size(); j++)
 				{
 					if (user.equals(d[j].getP().getUser())) {
 						SQ(d[j]);// security questions
 						System.out.println(d[j].getP().getPass());// gets password
-				} 
+				} */
+				//use while loop to check nodes
+				Node curr = d.getFront();
+				while(curr != null) {
+					if(user.equals(curr.getP().getUser())) {
+						SQ(curr);
+						System.out.println("Your password is: " + curr.getP().getPass() + "\n");
+						return;
+					}
+					else
+						curr = curr.getHead();
+				}
 				System.out.println("We couldn't find that username. Would you like to try again? (y/n): ");
 				a = kb.nextLine();
 			} while (a.equalsIgnoreCase("y"));
@@ -282,25 +310,17 @@ public class Application {
 		Scanner kb = new Scanner(System.in);
 		int tries = 1;	
 		// ask security questions
-		System.out.println(n.getP().getSecurityQ1());		String answer1 = kb.nextLine();
-		while (answer1 != n.getP().getAnswer1() & tries != 4) {
-			System.out.print("Incorrect Answer. Please Try Again");
+		System.out.println(n.getP().getSecurityQ1());		
+		String answer1 = kb.nextLine();
+		while (!answer1.equalsIgnoreCase(n.getP().getAnswer1()) & tries != 4) {
+			tries +=1;
+			System.out.println("Incorrect Answer. Please Try Again");
 			System.out.println(n.getP().getSecurityQ1());
-			//String answer1 = kb.nextLine(); *****DUPLICATE OF LINE 164*****
-			tries += 1;
+			answer1 = kb.nextLine();
 		}
 		if (tries == 4) {
 			System.out.print("Sorry, you have exceeded the amount of tries available.");
 			System.exit(0);
 		}
 	}
-	
-	public static void delete() {
-		
-	}
-	
-	//specify what info to change, Database
-	public static void changeInfo(Node n) {
-		
-	}	
 }
