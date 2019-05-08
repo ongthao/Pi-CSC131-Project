@@ -257,13 +257,6 @@ public class Application {
 			do {
 				System.out.println("Enter your email");
 				email = kb.nextLine();
-				/*for(i=0; i<d.getSize(); i++)
-				{
-					if (email.equals(d.getP().getEmail())) {
-						SQ(d[i]);// security questions
-						System.out.println(d[i].getP().getUser());// gets username
-					}
-				}*/
 				//use while loop to check nodes
 				Node curr = d.getFront();
 				while(curr != null) {
@@ -283,12 +276,6 @@ public class Application {
 			do {
 				System.out.println("Enter your username");
 				user = kb.nextLine();
-				/*for(j=0; j<d.size(); j++)
-				{
-					if (user.equals(d[j].getP().getUser())) {
-						SQ(d[j]);// security questions
-						System.out.println(d[j].getP().getPass());// gets password
-				} */
 				//use while loop to check nodes
 				Node curr = d.getFront();
 				while(curr != null) {
