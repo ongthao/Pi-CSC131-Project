@@ -8,6 +8,8 @@ import java.util.*;
 
 //purpose of this class is to use Person objects to add people onto the database using linked lists or arraylist
 public class Database {
+	Node data;
+	/*
 	private class SortDatabase implements Comparator<Node>
 	{
 		public int compare(Node a, Node b)
@@ -15,9 +17,11 @@ public class Database {
 			return a.getP().getTagID() - b.getP().getTagID();
 		}
 	}
+	
 	private LinkedList<Node> front;
 	//private String FILENAME = "include/database.txt";
 	//private File text = new File(FILENAME);
+	
 	public Database() {
 		front = new LinkedList<Node>();
 	}
@@ -28,12 +32,13 @@ public class Database {
 		
 		n.setHead(null);
 		front.add(n);
+		setFront(n);
 	}
 	
 	//adds a new node to the database
 	public void add(Node n) throws IOException{
-		n.setHead(null);
-		front.add(n);
+		n.setHead(front);
+		front = n;
 		writeToFile();
 	}
 	
@@ -57,29 +62,47 @@ public class Database {
 	
 	//This method should allow the user to change their information (the String s will be an identifier for what specifically needs to be changed)
 	public void change(Node n, String s) {
+	}*/
+	public Database() {
+		data = null;
+	}
+	
+	public Database(Node n) {
+		data = n;
+	}
+	
+	public void add(Node n) {
+		n.setHead(data);
+		data = n;
+	}
+	public Node getFront() {
+		return data;
 	}
 	
 	private void writeToFile() throws IOException{
+		Node curr = data;
     	BufferedWriter writer = new BufferedWriter(new FileWriter(new File(/*front.get(i).getUsername()*/ "Testfile" + ".txt")));
-		for (int i = 0; i < front.size(); i++)
-		{
-			if(front.get(i).getP()== null) {
+    	while(curr.getHead != null) {
+			if(curr.getP()== null) {
 	            System.out.print("This node is empty");
 	        }
 	        else {
-	            writer.write(PtoS(front.get(i).getP()));
+	            writer.write(PtoS(curr.getP())+"\n");
 	        }
+			curr = curr.getHead();
 		}
+    	writer.write(PtoS(curr.getP()));
 		writer.close();
 	}
-	
-	private void sort()
-	{
-		Collections.sort(front, new SortDatabase());
-	}
-	
 	private String PtoS(Person p)
 	{
 		return p.toString();
 	}
+	/*
+	private void sort()
+	{
+		Collections.sort(front, new SortDatabase());
+	}*/
+	
+
 }
