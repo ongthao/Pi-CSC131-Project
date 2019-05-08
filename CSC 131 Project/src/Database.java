@@ -82,7 +82,7 @@ public class Database {
 	private void writeToFile() throws IOException{
 		Node curr = data;
     	BufferedWriter writer = new BufferedWriter(new FileWriter(new File(/*front.get(i).getUsername()*/ "Testfile" + ".txt")));
-    	while(curr.getHead != null) {
+    	while(curr.getHead() != null) {
 			if(curr.getP()== null) {
 	            System.out.print("This node is empty");
 	        }
