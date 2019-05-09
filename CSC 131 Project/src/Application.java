@@ -316,13 +316,10 @@ public class Application {
             }
 
 				while (curr != null) {
-					if (user.equalsIgnoreCase(curr.getP().getUser())) { 
-						if (pass.equalsIgnoreCase(curr.getP().getPass())) {
+					if (user.equalsIgnoreCase(curr.getP().getUser()) && pass.equalsIgnoreCase(curr.getP().getPass())) {
 							System.out.println("\nYou have successfully logged in.");
 							return curr;
-						}
-					}
-					else
+					}else
 						curr = curr.getHead();
 				}
 				System.out.print("\nError: Either your username or password is incorrect. \nWould you like to try again? (Y/N):  ");
