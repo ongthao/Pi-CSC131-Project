@@ -37,10 +37,11 @@ public class Application {
    public static void reg(Database d, Scanner kb) throws IOException
    {
 	   System.out.print("Your account has been registered. Do you want to log in? (Y/N)");
-		if(kb.next().equalsIgnoreCase("yes") || kb.next().equalsIgnoreCase("y")) {
+      String answer = kb.next();
+		if(answer.equalsIgnoreCase("yes") || answer.equalsIgnoreCase("y")) {
 			Node n = logIn(d,kb);
          enter(n, d, kb);
-      }else if(kb.next().equalsIgnoreCase("no") || kb.next().equalsIgnoreCase("n")){
+      }else if(answer.equalsIgnoreCase("no") || answer.equalsIgnoreCase("n")){
          menu(d, kb);
       }else{
          System.out.println("Not a valid option, try again \n\n");
@@ -213,7 +214,7 @@ public class Application {
 		int day = kb.nextInt();
 		String month = kb.next();
 		int year = kb.nextInt();
-		System.out.print("\nStreet Address (in format - 123 Elmo St: ");
+		System.out.print("\nStreet Address (in format - 123 Elmo St): ");
 		int number = kb.nextInt();
 		String street = kb.next();
 		String street2 = kb.next();
