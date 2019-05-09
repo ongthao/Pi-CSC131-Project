@@ -3,45 +3,105 @@ import java.io.*;
 
 public class Application {
 	public static void main(String[] args) throws IOException{
-		Scanner kb = new Scanner(System.in);
+      Scanner kb = new Scanner(System.in);
 		//database linked list's "front" node is the most recent registered account
 		Database d = update();
-		System.out.println("Welcome to Pie Device Locator.\nPlease select an option:\n1. Register\n2. Log In\n3. Forget Username and Password"); 
+      menu(d, kb);
+	}
+   
+   public static void menu(Database d, Scanner kb) throws IOException
+   {
+      dash();
+		System.out.println("Welcome to Pie Device Locator.\nPlease input a number to select an option:\n1. Register\n2. Log In\n3. Forget Username and Password\n4. Exit\n"); 
 		String input = kb.next(); 
 		//while(input.equalsIgnoreCase("1") || input.equalsIgnoreCase("Register") || input.equalsIgnoreCase("2") || input.equalsIgnoreCase("Log In"))  {
 		if (input.equalsIgnoreCase("1") || input.equalsIgnoreCase("register")) {
-			register(d, kb);
-			System.out.print("Your account has been registered. Do you want to log in? ");
-			if(kb.next().equalsIgnoreCase("yes")) {
-				Node n = logIn(d,kb);
-				System.out.print("\nIs your device lost? (yes/no) ");
-				String answer = kb.next();
-				if (answer.equalsIgnoreCase("yes"))
-					lost(n);
-			}
+            dash();
+            System.out.println("User Registration");
+   	      register(d, kb);
+            reg(d, kb);
 		}else if (input.equalsIgnoreCase("2") || input.equalsIgnoreCase("log in")) {
-			//"n" now represents the current user that is registered. 
+         	Node n = logIn(d,kb);
+            enter(n, d, kb);
+		}else if (input.equalsIgnoreCase("3") || input.equalsIgnoreCase("Forget")) {
+            forgotUserOrPass(d);
+            forget(d, kb);
+		}else if (input.equalsIgnoreCase("4") || input.equalsIgnoreCase("exit")) {
+         exit();
+      }else{
+		   System.out.println("Not a valid option, try again \n\n");
+         menu(d, kb);
+      }
+   }
+   
+   public static void reg(Database d, Scanner kb) throws IOException
+   {
+	   System.out.print("Your account has been registered. Do you want to log in? (Y/N)");
+		if(kb.next().equalsIgnoreCase("yes") || kb.next().equalsIgnoreCase("y")) {
 			Node n = logIn(d,kb);
-			System.out.print("\nIs your device lost? (yes/no) ");
-			String answer = kb.next();
-			if (answer.equalsIgnoreCase("yes"))
-				lost(n);
-		}else {
-			forgotUserOrPass(d);
-			System.out.print("Would you like to try logging in? (y/n)");
-			String ans = kb.next();
-			if(ans.equalsIgnoreCase("y")) {
-				Node n = logIn(d, kb);
-				System.out.print("\nIs your device lost? (yes/no) ");
-				String answer = kb.next();
-				if (answer.equalsIgnoreCase("yes"))
-					lost(n);
-			}
-		}
-		System.out.println("\nThank you for using this application!");
+         enter(n, d, kb);
+      }else if(kb.next().equalsIgnoreCase("no") || kb.next().equalsIgnoreCase("n")){
+         menu(d, kb);
+      }else{
+         System.out.println("Not a valid option, try again \n\n");
+         reg(d, kb);
+      }     
+   }
+   
+   public static void enter(Node n, Database d, Scanner kb) throws IOException
+   {
+      //"n" now represents the current user that is registered. 
+		System.out.print("\nIs your device lost? (Y/N) ");
+		String answer1 = kb.next();
+		if(answer1.equalsIgnoreCase("yes") || answer1.equalsIgnoreCase("y")){
+			lost(n);
+      }else if(answer1.equalsIgnoreCase("no") || answer1.equalsIgnoreCase("n")){
+         System.out.print("\nWould you like to log out? (Y/N) ");
+         String answer2 = kb.next();
+         if(answer2.equalsIgnoreCase("yes") || answer2.equalsIgnoreCase("y")){
+            menu(d, kb);
+         }else if(answer2.equalsIgnoreCase("no") || answer2.equalsIgnoreCase("n")){
+            enter(n, d, kb);
+         }else{
+            System.out.println("Not a valid option, Please try again!");
+            enter(n, d, kb); 
+         }
+      }else{
+         System.out.println("Not a valid option, Please try again!");
+         enter(n, d, kb);
+      }
+   }
+   
+   public static void forget(Database d, Scanner kb) throws IOException
+   {
+		System.out.print("Would you like to try logging in? (Y/N)");
+		String ans = kb.next();
+		if(ans.equalsIgnoreCase("y") || ans.equalsIgnoreCase("yes")) {
+			Node n = logIn(d, kb);
+         enter(n, d, kb);
+      }else if(ans.equalsIgnoreCase("n") || ans.equalsIgnoreCase("no")){
+         menu(d, kb);
+      }else{
+         System.out.println("Not a valid option, Please try again!");
+         forget(d, kb);
+      }
+   }
+   
+   public static void exit()
+   {
+      System.out.println("\nThank you for using this application!");
 		System.exit(0);
-		//System.out.println("Not a valid option, try again");
-	}
+   }
+   
+   public static void dash()
+   {
+      for(int i = 0; i <= 30; i++)
+      {
+         System.out.print("-");
+      }
+      System.out.println();
+   }
+   
 	// purpose of this method is to create a database of values we are getting from
 	// the text file (if the text file is not null)
 	public static Database update() throws IOException{
@@ -145,14 +205,15 @@ public class Application {
 		String pass = kb.next();
 		System.out.print("\nPhone number: ");
 		String phone = kb.next();
-		System.out.print("\nActual name (first and last): ");
+		System.out.print("\nActual First Name (If multiple, join them with the \"-\" symbol): ");
 		String name = kb.next();
+      System.out.print("\nActual Last Name (If multiple, join them with the \"-\" symbol): ");
 		String name2 = kb.next();
 		System.out.print("\nBirth (in format - day month year; e.g 12 January 1999): ");
 		int day = kb.nextInt();
 		String month = kb.next();
 		int year = kb.nextInt();
-		System.out.print("\nAddress: ");
+		System.out.print("\nStreet Address (in format - 123 Elmo St: ");
 		int number = kb.nextInt();
 		String street = kb.next();
 		String street2 = kb.next();
@@ -205,9 +266,9 @@ public class Application {
 		//then signals the item to beam location every 10 minutes for GPS location (valuableitem.itemLost() (G)
 		do{
 			n.getP().getItem().lost();
-			System.out.print("Have you found your item yet? (y/n): \n");
+			System.out.print("Have you found your item yet? (Y/N): \n");
 			answer = kb.next();
-			if(answer.equalsIgnoreCase("y"))
+			if(answer.equalsIgnoreCase("y") || answer.equalsIgnoreCase("yes"))
 				n.getP().getItem().setStatus("found");
 		}while(n.getP().getItem().getStatus().equalsIgnoreCase("lost"));
 		if(n.getP().getItem().getStatus().equalsIgnoreCase("found"))
@@ -225,6 +286,8 @@ public class Application {
 		int num = 0; // signal for error
 		while (num == 0) {
 			Node curr = d.getFront();
+         dash();
+         System.out.println("User Log in");
 			System.out.print("\nPlease enter your username: ");
 			String user = kb.next();
 			System.out.print("Please enter your password: ");
@@ -244,16 +307,16 @@ public class Application {
 		return null;
 	}
 
-	public static void forgotUserOrPass(Database d) {
+	public static void forgotUserOrPass(Database d) throws IOException {
 		Scanner kb = new Scanner(System.in);
 		String user = "";
 		String pass = "";
 		String email = "";
 		String a = "";
 		int i, j;
-		System.out.println("Did you forget your username or password?");
+		System.out.println("What did you forget?\n1. Username\n2. Password\n3. Return to Main Menu\n");
 		String input = kb.nextLine();
-		if (input.equalsIgnoreCase("username")) {
+		if (input.equalsIgnoreCase("username") || input.equalsIgnoreCase("user") || input.equalsIgnoreCase("1")) {
 			do {
 				System.out.println("Enter your email");
 				email = kb.nextLine();
@@ -271,8 +334,7 @@ public class Application {
 				System.out.println("We couldn't find that email. Would you like to try again? (y/n): ");
 				a = kb.nextLine();
 			} while (a.equalsIgnoreCase("y"));
-		}
-		else if (input.equalsIgnoreCase("password")) {
+		}else if (input.equalsIgnoreCase("password") || input.equalsIgnoreCase("pass") || input.equalsIgnoreCase("2")) {
 			do {
 				System.out.println("Enter your username");
 				user = kb.nextLine();
@@ -290,9 +352,14 @@ public class Application {
 				System.out.println("We couldn't find that username. Would you like to try again? (y/n): ");
 				a = kb.nextLine();
 			} while (a.equalsIgnoreCase("y"));
-		} else
-			System.exit(0);
+		}else if (input.equalsIgnoreCase("menu") || input.equalsIgnoreCase("main menu") || input.equalsIgnoreCase("3")){
+			menu(d, kb);
+      }else{
+         System.out.println("Not a valid option, Please try again!");
+         forgotUserOrPass(d);
+      }
 	}
+   
 	public static void SQ(Node n){
 		Scanner kb = new Scanner(System.in);
 		int tries = 1;	
