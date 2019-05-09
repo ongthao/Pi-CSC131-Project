@@ -285,27 +285,33 @@ public class Application {
 	// into another person's phone or device to find their item
 	public static Node logIn(Database d, Scanner kb) {
 		int num = 0; // signal for error
-		while (num == 0) {
-			Node curr = d.getFront();
-         dash();
-         System.out.println("User Log in");
-			System.out.print("\nPlease enter your username: ");
-			String user = kb.next();
-			System.out.print("Please enter your password: ");
-			String pass = kb.next();
-			while (curr != null) {
-				if (user.equalsIgnoreCase(curr.getP().getUser())) { 
-					if (pass.equalsIgnoreCase(curr.getP().getPass())) {
-						System.out.println("\nYou have successfully logged in.");
-						return curr;
+		String ans = "y";
+		do {
+			 Node curr = d.getFront();
+	         dash();
+	         System.out.println("User Log in");
+				System.out.print("\nPlease enter your username: ");
+				String user = kb.next();
+				System.out.print("Please enter your password: ");
+				String pass = kb.next();
+				while (curr != null) {
+					if (user.equalsIgnoreCase(curr.getP().getUser())) { 
+						if (pass.equalsIgnoreCase(curr.getP().getPass())) {
+							System.out.println("\nYou have successfully logged in.");
+							return curr;
+						}
 					}
+					else
+						curr = curr.getHead();
 				}
-				else
-					curr = curr.getHead();
-			}
-			System.out.println("Error: Either your username or password is incorrect. Please try again.");
-		}
-		return null;
+				System.out.println("Error: Either your username or password is incorrect. Would you like to try again? (y/n) ");
+				ans = kb.next();
+				while(!ans.equalsIgnoreCase("y") && !ans.equalsIgnoreCase("n")) {
+					System.out.print("Please input \'y\' or \'n\' ");
+					ans = kb.next();
+				}
+			}while(ans.equalsIgnoreCase("y"));
+			return null;
 	}
 
 	public static void forgotUserOrPass(Database d) throws IOException {
