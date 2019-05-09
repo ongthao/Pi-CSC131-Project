@@ -75,8 +75,8 @@ public class ValuableItem {
         	//used for sending beams every 10 minutes to update location
         	public String itemLost() {
         		//writes to a file (sends info about its tagID and location)
-        		double temp1 = Math.round((Math.random()*Math.random()*6355)*100)/100D;
-        		double temp2 = Math.round((Math.random()*Math.random()*6355)*100)/100D;
+        	   	double temp1 = ThreadLocalRandom.current().nextDouble(-90, 90);
+        		double temp2 = ThreadLocalRandom.current().nextDouble(-180, 180);
         		setX(temp1);
         		setY(temp2);
         		return String.format("Current Location: (%s, %s)", x, y);
@@ -89,9 +89,4 @@ public class ValuableItem {
         }, 0, 10 * 60 * 1000); // Change the last three numbers to desired time. (Minutes * Seconds * Milliseconds)]
         				 // For 10 minutes put 10 * 60 * 1000 in place of 3 * 1000	
     }
-   
-   //writes the location in (x,y) format
-   public String toString() {
-	  return String.format("TagID: %s %nStatus: %s %nLocation: (%s, %s)", tagID, status, x, y);
-   }
 }
