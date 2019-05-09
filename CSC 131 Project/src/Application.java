@@ -19,6 +19,7 @@ public class Application {
 		if (input.equalsIgnoreCase("1") || input.equalsIgnoreCase("register")) {
             dash();
             System.out.println("User Registration");
+            System.out.println("\nIf you would like to return to Main Menu, Type \"0\" in Username");
    	      register(d, kb);
             reg(d, kb);
 		}else if (input.equalsIgnoreCase("2") || input.equalsIgnoreCase("log in")) {
@@ -37,7 +38,7 @@ public class Application {
    
    public static void reg(Database d, Scanner kb) throws IOException
    {
-	   System.out.print("Your account has been registered. Do you want to log in? (Y/N): ");
+	   System.out.print("\nYour account has been registered. Do you want to log in? (Y/N): ");
       String answer = kb.next();
 		if(answer.equalsIgnoreCase("yes") || answer.equalsIgnoreCase("y")) {
 			Node n = logIn(d,kb);
@@ -45,7 +46,7 @@ public class Application {
       }else if(answer.equalsIgnoreCase("no") || answer.equalsIgnoreCase("n")){
          menu(d, kb);
       }else{
-         System.out.println("Not a valid option, try again \n\n");
+         System.out.println("Not a valid option, try again \n");
          reg(d, kb);
       }     
    }
@@ -61,6 +62,7 @@ public class Application {
          System.out.print("\nWould you like to log out? (Y/N) ");
          String answer2 = kb.next();
          if(answer2.equalsIgnoreCase("yes") || answer2.equalsIgnoreCase("y")){
+            System.out.println("You have Successfully logged out!");
             menu(d, kb);
          }else if(answer2.equalsIgnoreCase("no") || answer2.equalsIgnoreCase("n")){
             enter(n, d, kb);
@@ -76,7 +78,7 @@ public class Application {
    
    public static void forget(Database d, Scanner kb) throws IOException
    {
-		System.out.print("Would you like to try logging in? (Y/N)");
+		System.out.print("Would you like to try logging in? (Y/N): ");
 		String ans = kb.next();
 		if(ans.equalsIgnoreCase("y") || ans.equalsIgnoreCase("yes")) {
 			Node n = logIn(d, kb);
@@ -97,7 +99,7 @@ public class Application {
    
    public static void dash()
    {
-      for(int i = 0; i <= 50; i++)
+      for(int i = 0; i <= 75; i++)
       {
          System.out.print("-");
       }
@@ -203,6 +205,10 @@ public class Application {
 		// prompt for username, password, etc.
 		System.out.print("\nUsername: ");
 		String user = kb.next();
+      
+      if(user.equals("0"))
+         menu(d, kb);
+      
 		System.out.print("\nPassword: ");
 		String pass = kb.next();
 		System.out.print("\nPhone number: ");
@@ -272,14 +278,14 @@ public class Application {
 		//then signals the item to beam location every 10 minutes for GPS location (valuableitem.itemLost() (G)
 		do{
          n.getP().getItem().lost();
-         System.out.print("Have you found your item yet? (Y/N)");
+         System.out.println("Have you found your item yet? (Y/N)");
 			answer = kb.next();
          System.out.println();
 			if(answer.equalsIgnoreCase("y") || answer.equalsIgnoreCase("yes"))
 				n.getP().getItem().setStatus("found");
 		}while(n.getP().getItem().getStatus().equalsIgnoreCase("lost"));
 		if(n.getP().getItem().getStatus().equalsIgnoreCase("found"))
-			System.out.println("\nOwner " + n.getP().getUser() + " with Address " + n.getP().getAddress() + " is notified that Owner's " + n.getP().getDescript() + " with Tag ID " + n.getP().getTagID() + " was found at GPS Location " + n.getP().getItem().getX() + ", " + n.getP().getItem().getY() + ".");
+			System.out.println("Owner " + n.getP().getUser() + " with Address " + n.getP().getAddress() + " is notified that Owner's " + n.getP().getDescript() + " with Tag ID " + n.getP().getTagID() + " was found at GPS Location " + n.getP().getItem().getX() + ", " + n.getP().getItem().getY() + ".");
          System.out.println("\nWe are pleased that you have successfully found your item! You will now be logged out and be redirected to the Main Menu!");
          menu(d, kb);
 		//gets item's TagID and info from "database" (X,T,Y) 
@@ -322,12 +328,16 @@ public class Application {
 					}else
 						curr = curr.getHead();
 				}
-				System.out.print("\nError: Either your username or password is incorrect. \nWould you like to try again? (Y/N):  ");
+				System.out.print("\nError: Either your username or password is incorrect. \nWould you like to try again? (Y/N): ");
 				ans = kb.next();
-				while(!ans.equalsIgnoreCase("y") && !ans.equalsIgnoreCase("n")) {
-					System.out.print("Please input \'y\' or \'n\' ");
+				while(!(ans.equalsIgnoreCase("y") || ans.equalsIgnoreCase("yes") ) && !(ans.equalsIgnoreCase("n") || ans.equalsIgnoreCase("no"))) {
+					System.out.println("\nPlease input \"y\" or \"n\" ");
+               System.out.print("\nError: Either your username or password is incorrect. \nWould you like to try again? (Y/N): ");
 					ans = kb.next();
 				}
+            
+            if(ans.equalsIgnoreCase("n") || ans.equalsIgnoreCase("no"))
+               menu(d, kb);
 			}while(ans.equalsIgnoreCase("y"));
 			return null;
 	}
@@ -345,39 +355,63 @@ public class Application {
 		String input = kb.nextLine();
 		if (input.equalsIgnoreCase("username") || input.equalsIgnoreCase("user") || input.equalsIgnoreCase("1")) {
 			do {
-				System.out.println("Enter your email");
+            System.out.println();
+            dash();
+            System.out.println("Forgot Username");
+				System.out.print("\nEnter your email: ");
 				email = kb.nextLine();
 				//use while loop to check nodes
 				Node curr = d.getFront();
 				while(curr != null) {
 					if(email.equals(curr.getP().getEmail())) {
 						SQ(curr, d);
-						System.out.println("This is your username: " + curr.getP().getUser());
+						System.out.println("\nThis is your username: " + curr.getP().getUser() + "\n");
 						return;
 					}
 					else
 						curr = curr.getHead();
 				}
-				System.out.println("We couldn't find that email. Would you like to try again? (y/n): ");
+				System.out.print("\nWe couldn't find that email. Would you like to try again? (Y/N): ");
 				a = kb.nextLine();
-			} while (a.equalsIgnoreCase("y"));
+            
+            if(!((a.equalsIgnoreCase("n") || a.equalsIgnoreCase("no"))||(a.equalsIgnoreCase("y") || a.equalsIgnoreCase("yes")))){
+               do{
+                  System.out.print("\nWe couldn't find that email. Would you like to try again? (Y/N): ");
+                  a = kb.nextLine();
+               }while(!((a.equalsIgnoreCase("n") || a.equalsIgnoreCase("no"))||(a.equalsIgnoreCase("y") || a.equalsIgnoreCase("yes"))));
+            }
+            if(a.equalsIgnoreCase("n") || a.equalsIgnoreCase("no"))
+               forgotUserOrPass(d);
+			} while (a.equalsIgnoreCase("y") || a.equalsIgnoreCase("yes"));
 		}else if (input.equalsIgnoreCase("password") || input.equalsIgnoreCase("pass") || input.equalsIgnoreCase("2")) {
 			do {
-				System.out.println("Enter your username");
+            System.out.println();
+            dash();
+            System.out.print("Forgot Password\n");
+				System.out.print("\nEnter your username: ");
 				user = kb.nextLine();
 				//use while loop to check nodes
 				Node curr = d.getFront();
 				while(curr != null) {
 					if(user.equals(curr.getP().getUser())) {
 						SQ(curr, d);
-						System.out.println("Your password is: " + curr.getP().getPass() + "\n");
+						System.out.println("\nYour password is: " + curr.getP().getPass() + "\n");
 						return;
 					}
 					else
 						curr = curr.getHead();
 				}
-				System.out.println("We couldn't find that username. Would you like to try again? (y/n): ");
+				System.out.print("\nWe couldn't find that username. Would you like to try again? (Y/N): ");
 				a = kb.nextLine();
+          
+            if(!((a.equalsIgnoreCase("n") || a.equalsIgnoreCase("no"))||(a.equalsIgnoreCase("y") || a.equalsIgnoreCase("yes")))){
+               do{
+                  System.out.print("\nWe couldn't find that username. Would you like to try again? (Y/N): ");
+                  a = kb.nextLine();
+               }while(!((a.equalsIgnoreCase("n") || a.equalsIgnoreCase("no"))||(a.equalsIgnoreCase("y") || a.equalsIgnoreCase("yes"))));
+            }
+            if(a.equalsIgnoreCase("n") || a.equalsIgnoreCase("no"))
+               forgotUserOrPass(d);
 			} while (a.equalsIgnoreCase("y"));
 		}else if (input.equalsIgnoreCase("menu") || input.equalsIgnoreCase("main menu") || input.equalsIgnoreCase("3")){
 			menu(d, kb);
@@ -391,16 +425,16 @@ public class Application {
 		Scanner kb = new Scanner(System.in);
 		int tries = 1;	
 		// ask security questions
-		System.out.println(n.getP().getSecurityQ1());		
+		System.out.print("\n" + n.getP().getSecurityQ1() + " ");		
 		String answer1 = kb.nextLine();
 		while (!answer1.equalsIgnoreCase(n.getP().getAnswer1()) & tries != 4) {
 			tries +=1;
-			System.out.println("Incorrect Answer. Please Try Again");
-			System.out.println(n.getP().getSecurityQ1());
+			System.out.println("\nIncorrect Answer. Please Try Again");
+			System.out.print("\n" + n.getP().getSecurityQ1() + " ");	
 			answer1 = kb.nextLine();
 		}
 		if (tries == 4) {
-			System.out.print("Sorry, you have exceeded the amount of tries available.");
+			System.out.println("Sorry, you have exceeded the amount of tries available.");
 			menu(d, kb);
 		}
 	}
