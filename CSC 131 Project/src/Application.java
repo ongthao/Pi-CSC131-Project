@@ -5,15 +5,15 @@ public class Application {
 	public static void main(String[] args) throws IOException{
       Scanner kb = new Scanner(System.in);
 		//database linked list's "front" node is the most recent registered account
-		Database d = update();
+      Database d = update();
       menu(d, kb);
 	}
    
    public static void menu(Database d, Scanner kb) throws IOException
    {
       dash();
-		System.out.println("Welcome to Pie Device Locator.\nPlease input a number to select an option:\n1. Register\n2. Log In\n3. Forget Username and Password\n4. Exit\n"); 
-		System.out.print("Your Choice: ");
+	  System.out.println("Welcome to Pie Device Locator.\nPlease input a number to select an option:\n1. Register\n2. Log In\n3. Forget Username and Password\n4. Exit\n"); 
+	  System.out.print("Your Choice: ");
       String input = kb.next(); 
 		//while(input.equalsIgnoreCase("1") || input.equalsIgnoreCase("Register") || input.equalsIgnoreCase("2") || input.equalsIgnoreCase("Log In"))  {
 		if (input.equalsIgnoreCase("1") || input.equalsIgnoreCase("register")) {
@@ -31,16 +31,16 @@ public class Application {
 		}else if (input.equalsIgnoreCase("4") || input.equalsIgnoreCase("exit")) {
          exit();
       }else{
-		   System.out.println("Not a valid option, try again \n\n");
+		 System.out.println("Not a valid option, try again \n\n");
          menu(d, kb);
       }
    }
    
    public static void reg(Database d, Scanner kb) throws IOException
    {
-	   System.out.print("\nYour account has been registered. Do you want to log in? (Y/N): ");
+	  System.out.print("\nYour account has been registered. Do you want to log in? (Y/N): ");
       String answer = kb.next();
-		if(answer.equalsIgnoreCase("yes") || answer.equalsIgnoreCase("y")) {
+      	if(answer.equalsIgnoreCase("yes") || answer.equalsIgnoreCase("y")) {
 			Node n = logIn(d,kb);
          enter(n, d, kb);
       }else if(answer.equalsIgnoreCase("no") || answer.equalsIgnoreCase("n")){
@@ -53,28 +53,28 @@ public class Application {
    
    public static void enter(Node n, Database d, Scanner kb) throws IOException
    {
-      //"n" now represents the current user that is registered. 
+	   	//"n" now represents the current user that is registered. 
 		System.out.print("\nIs your device lost? (Y/N) ");
 		String answer1 = kb.next();
 		if(answer1.equalsIgnoreCase("yes") || answer1.equalsIgnoreCase("y")){
 			lost(n, d);
-      }else if(answer1.equalsIgnoreCase("no") || answer1.equalsIgnoreCase("n")){
-         System.out.print("\nWould you like to log out? (Y/N) ");
-         String answer2 = kb.next();
-         if(answer2.equalsIgnoreCase("yes") || answer2.equalsIgnoreCase("y")){
-            System.out.println("You have Successfully logged out!");
-            menu(d, kb);
-         }else if(answer2.equalsIgnoreCase("no") || answer2.equalsIgnoreCase("n")){
-            enter(n, d, kb);
-         }else{
-            System.out.println("Not a valid option, Please try again!");
-            enter(n, d, kb); 
-         }
-      }else{
-         System.out.println("Not a valid option, Please try again!");
-         enter(n, d, kb);
-      }
-   }
+        }else if(answer1.equalsIgnoreCase("no") || answer1.equalsIgnoreCase("n")){
+            System.out.print("\nWould you like to log out? (Y/N) ");
+            String answer2 = kb.next();
+            if(answer2.equalsIgnoreCase("yes") || answer2.equalsIgnoreCase("y")){
+            	System.out.println("You have Successfully logged out!");
+            	menu(d, kb);
+            }else if(answer2.equalsIgnoreCase("no") || answer2.equalsIgnoreCase("n")){
+            	enter(n, d, kb);
+            }else{
+            	System.out.println("Not a valid option, Please try again!");
+            	enter(n, d, kb); 
+            }
+        }else{
+        	System.out.println("Not a valid option, Please try again!");
+        	enter(n, d, kb);
+        }
+   	}
    
    public static void forget(Database d, Scanner kb) throws IOException
    {
@@ -94,7 +94,7 @@ public class Application {
    public static void exit()
    {
       System.out.println("\nThank you for using this application!");
-		System.exit(0);
+      System.exit(0);
    }
    
    public static void dash()
@@ -215,7 +215,7 @@ public class Application {
 		String phone = kb.next();
 		System.out.print("\nActual First Name (If multiple, join them with the \"-\" symbol): ");
 		String name = kb.next();
-      System.out.print("\nActual Last Name (If multiple, join them with the \"-\" symbol): ");
+		System.out.print("\nActual Last Name (If multiple, join them with the \"-\" symbol): ");
 		String name2 = kb.next();
 		System.out.print("\nBirth (in format - day month year; e.g 12 January 1999): ");
 		int day = kb.nextInt();
@@ -236,31 +236,31 @@ public class Application {
 		String sec1 = "What is your favorite hobby?";
 		String sec2 = "What was your childhood nickname?";
 		String sec3 = "Where were you born?";
-      int select = 0;
+		int select = 0;
 		String answer = "";
 		String Q1 = "";
-      do{
-         System.out.println("Please choose your security question: ");
-   		System.out.println("1.) " + sec1);
-   		System.out.println("2.) " + sec2);
-   		System.out.println("3.) " + sec3 + "\n");
-         System.out.print("Your Choice: ");
-   		select = kb.nextInt();
-   		if(select == 1) {
+		do{
+			System.out.println("Please choose your security question: ");
+			System.out.println("1.) " + sec1);
+			System.out.println("2.) " + sec2);
+			System.out.println("3.) " + sec3 + "\n");
+			System.out.print("Your Choice: ");
+			select = kb.nextInt();
+			if(select == 1) {
    				Q1 = sec1;
    				System.out.print("\n" + sec1 +  " (One word reply please): ");
    				answer = kb.next();
-   		} else if(select == 2) {
+			}else if(select == 2) {
    				Q1 = sec2;
    				System.out.print("\n" + sec2 +  " (One word reply please): ");
    				answer = kb.next();
-   		} else if(select == 3) {
+			}else if(select == 3) {
    				Q1 = sec3;
    				System.out.print("\n" + sec3 + " (One word reply please): ");
    				answer = kb.next();
-   		}else 
+			}else 
 				System.out.println("No security question listed above was selected. Please try again. \n");
-      }while(!(select == 1 || select == 2 || select == 3));
+		}while(!(select == 1 || select == 2 || select == 3));
 		Person s = new Person(user, pass, phone, name + " " + name2, day + " " + month + " " + year, number + " " + street + " " + street2, mail, it, created1 + " " + created2 + " " + created3, val, Q1, answer);
 		// create a node to add into database linked list
 		Node n = new Node(s);
@@ -298,41 +298,41 @@ public class Application {
 	// user logs in if they already have an existing account/will need this to log
 	// into another person's phone or device to find their item
 	public static Node logIn(Database d, Scanner kb) throws IOException{
-      int num = 0; // signal for error
+		int num = 0; // signal for error
 		String ans = "y";
 		do {
 			 Node curr = d.getFront();
 	         dash();
 	         System.out.println("User Log in");
             
-            System.out.println("Type \"0\" if you would like to return to Main Menu");
+             System.out.println("Type \"0\" if you would like to return to Main Menu");
 
-				System.out.print("\nPlease enter your username: ");
-				String user = kb.next();
+             System.out.print("\nPlease enter your username: ");
+             String user = kb.next();
                
-            if(user.equals("0")){
-               menu(d, kb);
-            }
-         
-				System.out.print("Please enter your password: ");
-				String pass = kb.next();
+             if(user.equals("0")){
+            	 menu(d, kb);
+             }
+        
+             System.out.print("Please enter your password: ");
+             String pass = kb.next();
             
-            if(pass.equals("0")){
-               menu(d, kb);
-            }
+             if(pass.equals("0")){
+            	 menu(d, kb);
+             }
 
-				while (curr != null) {
-					if (user.equalsIgnoreCase(curr.getP().getUser()) && pass.equalsIgnoreCase(curr.getP().getPass())) {
-							System.out.println("\nYou have successfully logged in.");
-							return curr;
-					}else
-						curr = curr.getHead();
-				}
+             while (curr != null) {
+            	 if (user.equalsIgnoreCase(curr.getP().getUser()) && pass.equalsIgnoreCase(curr.getP().getPass())) {
+            		 System.out.println("\nYou have successfully logged in.");
+            		 return curr;
+            	 }else
+            		 curr = curr.getHead();
+             }
 				System.out.print("\nError: Either your username or password is incorrect. \nWould you like to try again? (Y/N): ");
 				ans = kb.next();
 				while(!(ans.equalsIgnoreCase("y") || ans.equalsIgnoreCase("yes") ) && !(ans.equalsIgnoreCase("n") || ans.equalsIgnoreCase("no"))) {
 					System.out.println("\nPlease input \"y\" or \"n\" ");
-               System.out.print("\nError: Either your username or password is incorrect. \nWould you like to try again? (Y/N): ");
+					System.out.print("\nError: Either your username or password is incorrect. \nWould you like to try again? (Y/N): ");
 					ans = kb.next();
 				}
             
@@ -349,9 +349,9 @@ public class Application {
 		String email = "";
 		String a = "";
 		int i, j;
-      dash();
+		dash();
 		System.out.println("What did you forget?\n1. Username\n2. Password\n3. Return to Main Menu\n");
-      System.out.print("Your Choice: ");
+		System.out.print("Your Choice: ");
 		String input = kb.nextLine();
 		if (input.equalsIgnoreCase("username") || input.equalsIgnoreCase("user") || input.equalsIgnoreCase("1")) {
 			do {
@@ -374,20 +374,20 @@ public class Application {
 				System.out.print("\nWe couldn't find that email. Would you like to try again? (Y/N): ");
 				a = kb.nextLine();
             
-            if(!((a.equalsIgnoreCase("n") || a.equalsIgnoreCase("no"))||(a.equalsIgnoreCase("y") || a.equalsIgnoreCase("yes")))){
-               do{
-                  System.out.print("\nWe couldn't find that email. Would you like to try again? (Y/N): ");
-                  a = kb.nextLine();
-               }while(!((a.equalsIgnoreCase("n") || a.equalsIgnoreCase("no"))||(a.equalsIgnoreCase("y") || a.equalsIgnoreCase("yes"))));
-            }
-            if(a.equalsIgnoreCase("n") || a.equalsIgnoreCase("no"))
-               forgotUserOrPass(d);
-			} while (a.equalsIgnoreCase("y") || a.equalsIgnoreCase("yes"));
+				if(!((a.equalsIgnoreCase("n") || a.equalsIgnoreCase("no"))||(a.equalsIgnoreCase("y") || a.equalsIgnoreCase("yes")))){
+					do{
+						System.out.print("\nWe couldn't find that email. Would you like to try again? (Y/N): ");
+						a = kb.nextLine();
+					}while(!((a.equalsIgnoreCase("n") || a.equalsIgnoreCase("no"))||(a.equalsIgnoreCase("y") || a.equalsIgnoreCase("yes"))));
+				}
+				if(a.equalsIgnoreCase("n") || a.equalsIgnoreCase("no"))
+					forgotUserOrPass(d);
+			}while (a.equalsIgnoreCase("y") || a.equalsIgnoreCase("yes"));
 		}else if (input.equalsIgnoreCase("password") || input.equalsIgnoreCase("pass") || input.equalsIgnoreCase("2")) {
 			do {
-            System.out.println();
-            dash();
-            System.out.print("Forgot Password\n");
+	            System.out.println();
+	            dash();
+	            System.out.print("Forgot Password\n");
 				System.out.print("\nEnter your username: ");
 				user = kb.nextLine();
 				//use while loop to check nodes
@@ -397,28 +397,27 @@ public class Application {
 						SQ(curr, d);
 						System.out.println("\nYour password is: " + curr.getP().getPass() + "\n");
 						return;
-					}
-					else
+					}else
 						curr = curr.getHead();
-				}
+					}
 				System.out.print("\nWe couldn't find that username. Would you like to try again? (Y/N): ");
 				a = kb.nextLine();
           
-            if(!((a.equalsIgnoreCase("n") || a.equalsIgnoreCase("no"))||(a.equalsIgnoreCase("y") || a.equalsIgnoreCase("yes")))){
-               do{
-                  System.out.print("\nWe couldn't find that username. Would you like to try again? (Y/N): ");
-                  a = kb.nextLine();
-               }while(!((a.equalsIgnoreCase("n") || a.equalsIgnoreCase("no"))||(a.equalsIgnoreCase("y") || a.equalsIgnoreCase("yes"))));
-            }
-            if(a.equalsIgnoreCase("n") || a.equalsIgnoreCase("no"))
-               forgotUserOrPass(d);
-			} while (a.equalsIgnoreCase("y"));
+				if(!((a.equalsIgnoreCase("n") || a.equalsIgnoreCase("no"))||(a.equalsIgnoreCase("y") || a.equalsIgnoreCase("yes")))){
+					do{
+						System.out.print("\nWe couldn't find that username. Would you like to try again? (Y/N): ");
+						a = kb.nextLine();
+					}while(!((a.equalsIgnoreCase("n") || a.equalsIgnoreCase("no"))||(a.equalsIgnoreCase("y") || a.equalsIgnoreCase("yes"))));
+				}
+				if(a.equalsIgnoreCase("n") || a.equalsIgnoreCase("no"))
+					forgotUserOrPass(d);
+			}while (a.equalsIgnoreCase("y"));
 		}else if (input.equalsIgnoreCase("menu") || input.equalsIgnoreCase("main menu") || input.equalsIgnoreCase("3")){
 			menu(d, kb);
-      }else{
-         System.out.println("Not a valid option, Please try again!");
-         forgotUserOrPass(d);
-      }
+		}else{
+			System.out.println("Not a valid option, Please try again!");
+			forgotUserOrPass(d);
+		}
 	}
    
 	public static void SQ(Node n, Database d) throws IOException{
