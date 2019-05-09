@@ -22,6 +22,8 @@ public class Application {
             reg(d, kb);
 		}else if (input.equalsIgnoreCase("2") || input.equalsIgnoreCase("log in")) {
          	Node n = logIn(d,kb);
+         	if(n == null)
+         		menu(d, kb);
             enter(n, d, kb);
 		}else if (input.equalsIgnoreCase("3") || input.equalsIgnoreCase("Forget")) {
             forgotUserOrPass(d);
