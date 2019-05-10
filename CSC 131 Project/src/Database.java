@@ -105,6 +105,4 @@ public class Database {
 	{
 		Collections.sort(front, new SortDatabase());
 	}*/
-	
-
 }
