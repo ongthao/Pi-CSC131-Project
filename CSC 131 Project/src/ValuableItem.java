@@ -76,12 +76,11 @@ public class ValuableItem {
         	//used for sending beams every 10 minutes to update location
         	public String itemLost() {
         		//writes to a file (sends info about its tagID and location)
-        	   	double temp1 = ThreadLocalRandom.current().nextDouble(-90, 90);
+        		double temp1 = ThreadLocalRandom.current().nextDouble(-90, 90);
         		double temp2 = ThreadLocalRandom.current().nextDouble(-180, 180);
         		setX(temp1);
         		setY(temp2);
-        		return String.format("Current Location: (%s, %s)", x, y);
-        		
+        		return String.format("Current Location: (%2.4f, %3.4f)", x, y);   		
         	}
         	
         	public void itemFound() {
