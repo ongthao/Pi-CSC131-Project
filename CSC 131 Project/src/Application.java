@@ -229,7 +229,7 @@ public class Application {
 		String mail = kb.next();
 		System.out.print("\nWhat kind of item is it? (e.g. phone, laptop, notebook, etc.): ");
 		String it = kb.next();
-		System.out.println("\nToday's Date (in format of \"day month year\"; e.g. 12 January 1999): ");
+		System.out.print("\nToday's Date (in format of \"day month year\"; e.g. 12 January 1999): ");
 		int created1 = kb.nextInt();
 		String created2 = kb.next();
 		int created3 = kb.nextInt();
