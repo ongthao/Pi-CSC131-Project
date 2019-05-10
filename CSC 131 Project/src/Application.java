@@ -111,7 +111,7 @@ public class Application {
 	public static Database update() throws IOException{
 	
 		// reading from the text file create the appropriate objects to update the database.
-		File f = new File("Testfile.txt");
+		File f = new File("Server.txt");
 		Scanner input = new Scanner(f);		
 		StringTokenizer token = new StringTokenizer(input.nextLine());
 		Database d = new Database();

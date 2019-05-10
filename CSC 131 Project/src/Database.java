@@ -71,17 +71,19 @@ public class Database {
 		data = n;
 	}
 	
-	public void add(Node n) {
+	public void add(Node n)  throws IOException{
 		n.setHead(data);
 		data = n;
+		writeToFile();
 	}
+	
 	public Node getFront() {
 		return data;
 	}
 	
 	private void writeToFile() throws IOException{
 		Node curr = data;
-    	BufferedWriter writer = new BufferedWriter(new FileWriter(new File(/*front.get(i).getUsername()*/ "Testfile" + ".txt")));
+    	BufferedWriter writer = new BufferedWriter(new FileWriter(new File(/*front.get(i).getUsername()*/ "Server" + ".txt")));
     	while(curr.getHead() != null) {
 			if(curr.getP()== null) {
 	            System.out.print("This node is empty");
